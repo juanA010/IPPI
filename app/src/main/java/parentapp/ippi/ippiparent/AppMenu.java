@@ -123,6 +123,7 @@ public class AppMenu extends AppCompatActivity implements NavigationView.OnNavig
             intent = new Intent(this, BookingHistoryActivity.class);
             startActivity(intent);
             //hello
+            //nadia
 
         }
 
