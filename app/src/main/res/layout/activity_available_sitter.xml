@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AvailableSitterActivity">
+
+    <TextView
+        android:id="@+id/tvBabysitterAvailable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Available Babysitter"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivSitterImage"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/profile_avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBabysitterAvailable" />
+
+    <TextView
+        android:id="@+id/tvSitterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="SitterName"
+        app:layout_constraintStart_toEndOf="@+id/ivSitterImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvBabysitterAvailable" />
+
+    <TextView
+        android:id="@+id/tvRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Rating"
+        app:layout_constraintStart_toEndOf="@+id/ivSitterImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvSitterName" />
+
+    <Button
+        android:id="@+id/btnAccept"
+        android:layout_width="75dp"
+        android:layout_height="34dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:background="#86E070"
+        android:text="accept"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/tvSitterName"
+        app:layout_constraintTop_toBottomOf="@+id/tvBabysitterAvailable" />
+
+    <Button
+        android:id="@+id/btnDecline"
+        android:layout_width="75dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/holo_red_dark"
+        android:text="Decline"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnAccept"
+        app:layout_constraintTop_toBottomOf="@+id/tvBabysitterAvailable" />
+
+    <TextView
+        android:id="@+id/tvViewSitterProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="View Profile"
+        android:textColor="@android:color/holo_blue_light"
+        app:layout_constraintStart_toEndOf="@+id/ivSitterImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvRating" />
+
+</android.support.constraint.ConstraintLayout>

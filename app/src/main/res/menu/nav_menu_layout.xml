@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/profileId"
+            android:title="Profile"
+            android:icon="@drawable/ic_profile"
+            />
+
+        <item
+            android:id="@+id/mapId"
+            android:title="Find Babysitter"
+            android:icon="@drawable/ic_find_babysitter"
+            />
+
+        <item
+            android:id="@+id/paymentId"
+            android:title="Payment"
+            android:icon="@drawable/ic_payment"
+            />
+
+        <item
+            android:id="@+id/historyId"
+            android:title="Booking History"
+            android:icon="@drawable/ic_booking_history"
+            />
+
+        <item
+            android:id="@+id/helpId"
+            android:title="Help"
+            android:icon="@drawable/ic_help"
+            />
+
+        <item
+            android:id="@+id/settingId"
+            android:title="Setting"
+            android:icon="@drawable/ic_settings"
+            />
+
+
+
+
+
+    </group>
+
+    <item android:title="Babysitter">
+        <menu>
+            <item
+                android:id="@+id/babysitterId"
+                android:title="Want to be a Babysitter?"
+                android:icon="@drawable/ic_babysitter"
+                />
+
+        </menu>
+
+    </item>
+
+
+</menu>
