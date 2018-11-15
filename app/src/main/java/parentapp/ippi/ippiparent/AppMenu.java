@@ -122,6 +122,7 @@ public class AppMenu extends AppCompatActivity implements NavigationView.OnNavig
         else if (item.getItemId()==R.id.historyId){
             intent = new Intent(this, BookingHistoryActivity.class);
             startActivity(intent);
+            //hello
 
         }
 
