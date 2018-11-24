@@ -33,6 +33,7 @@ public class SettingActivity extends AppCompatActivity {
         UpdateLocation = findViewById(R.id.btChangeLocation);
         DeleteAccount = findViewById(R.id.btDeleteAccount);
         mAuth = FirebaseAuth.getInstance();
+        //hello
 
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
