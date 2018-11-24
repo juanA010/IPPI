@@ -1,13 +1,21 @@
 package parentapp.ippi.ippiparent;
 
+import android.annotation.TargetApi;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,12 +26,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 import parentapp.ippi.ippiparent.model.AvailableBabysitter;
 
 public class SearchbabysitterActivity extends AppCompatActivity {
 
+    private RadioButton GenderMale, GenderFemale, GenderAny, Age20, Age25, Age30;
+    private RadioGroup GenderSelect, AgeSelect;
+    private String selectedGender, selectedAge;
     private Button BtnSearchBs;
     private DatabaseReference sitterUserRef, sitterAvailable;
+    private TimePickerDialog picker, picker2;
+    private EditText etStartTime, etEndTime;
+    private Button btnGet;
 
 
     @Override
@@ -35,16 +51,106 @@ public class SearchbabysitterActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         BtnSearchBs = findViewById(R.id.btSearchBs);
+        GenderSelect = findViewById(R.id.SelectionGender);
+        AgeSelect = findViewById(R.id.SelectionAge);
+        GenderMale =findViewById(R.id.GenderMale);
+        GenderFemale= findViewById(R.id.GenderFemale);
+        GenderAny= findViewById(R.id.GenderAny);
+        Age20 = findViewById(R.id.Age20);
+        Age25= findViewById(R.id.Age25);
+        Age30 = findViewById(R.id.Age30);
+        etStartTime = findViewById(R.id.TimeStart);
+        etEndTime = findViewById(R.id.TimeEnd);
 
-        sitterUserRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
-        sitterAvailable = FirebaseDatabase.getInstance().getReference("AvailableSitter");
+
+        etStartTime.setInputType(InputType.TYPE_NULL);
+        etStartTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int hour = cldr.get(Calendar.HOUR_OF_DAY);
+                int minutes = cldr.get(Calendar.MINUTE);
+                // time picker dialog
+                picker = new TimePickerDialog(SearchbabysitterActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
+                                if(sMinute==00){
+                                    etStartTime.setText(sHour + ":" + sMinute+"0");
+                                }
+                                else{
+                                    etStartTime.setText(sHour + ":" + sMinute);
+                                }
+                            }
+                        }, hour, minutes, false);
+                picker.show();
+            }
+        });
+
+        etEndTime.setInputType(InputType.TYPE_NULL);
+        etEndTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr2 = Calendar.getInstance();
+                int hour2 = cldr2.get(Calendar.HOUR_OF_DAY);
+                int minutes2 = cldr2.get(Calendar.MINUTE);
+                // time picker dialog
+                picker2 = new TimePickerDialog(SearchbabysitterActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker tp2, int sHour2, int sMinute2) {
+                                if(sMinute2==00){
+                                    etEndTime.setText(sHour2 + ":" + sMinute2+"0");
+                                }
+                                else{
+                                    etEndTime.setText(sHour2 + ":" + sMinute2);
+                                }
+
+                            }
+                        }, hour2, minutes2, false);
+                picker2.show();
+            }
+        });
+
+
 
         BtnSearchBs.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
 
+               // GenderSelect.getCheckedRadioButtonId();
+                if(GenderMale.isChecked()){
+                    selectedGender = GenderMale.getText().toString();
+                }
+                if(GenderFemale.isChecked()){
+                    selectedGender = GenderFemale.getText().toString();
+                }
+                if (GenderAny.isChecked()){
+                    selectedGender = GenderAny.getText().toString();
+                }
+
+                if(Age20.isChecked()){
+                    selectedAge = Age20.getText().toString();
+                }
+                if(Age25.isChecked()){
+                    selectedAge = Age25.getText().toString();
+                }
+                if(Age30.isChecked()){
+                    selectedAge = Age30.getText().toString();
+                }
+
+                Toast.makeText(SearchbabysitterActivity.this,"gender: "+selectedGender,Toast.LENGTH_SHORT).show();
+                Toast.makeText(SearchbabysitterActivity.this,"age: "+selectedAge,Toast.LENGTH_SHORT).show();
+
+                sitterUserRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
+                sitterAvailable = FirebaseDatabase.getInstance().getReference("AvailableSitter");
+
+
+
+
                 //startActivity(new Intent(SearchbabysitterActivity.this, AvailableSitterActivity.class));
-                startActivity(new Intent(SearchbabysitterActivity.this, Retrieve.class));
+               // startActivity(new Intent(SearchbabysitterActivity.this, Retrieve.class));
 
 //                sitterUserRef.addValueEventListener(new ValueEventListener() {
 //
