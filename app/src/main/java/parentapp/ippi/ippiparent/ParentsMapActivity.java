@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -52,7 +53,7 @@ import parentapp.ippi.ippiparent.model.ParentsLocationData;
 
 public class ParentsMapActivity extends AppCompatActivity implements OnMapReadyCallback{
 
-    SearchView SearchSitter;
+    LinearLayout SearchSitter;
     GoogleMap mGoogleMap;
     GoogleApiClient googleApiClient;
     SupportMapFragment mapFrag;
