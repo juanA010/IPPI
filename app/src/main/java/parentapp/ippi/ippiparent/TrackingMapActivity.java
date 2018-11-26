@@ -3,22 +3,17 @@ package parentapp.ippi.ippiparent;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -46,38 +41,29 @@ import java.util.List;
 
 import parentapp.ippi.ippiparent.model.ParentsLocationData;
 
-public class NavigationToSitter extends AppCompatActivity implements OnMapReadyCallback {
+public class TrackingMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    Button ArrivedSitter;
     GoogleMap mGoogleMap;
     GoogleApiClient googleApiClient;
     SupportMapFragment mapFrag;
     LocationRequest mLocationRequest;
     Location mLastLocation;
-    Marker mCurrLocationMarker, sitterLocationMarker;
+    Marker sitterLocationMarker;
     FusedLocationProviderClient mFusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation_to_sitter);
+        setContentView(R.layout.activity_tracking_map);
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setTitle("Map Location Activity");
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
 
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
-
-        ArrivedSitter = findViewById(R.id.arrivedDestination);
-        ArrivedSitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(NavigationToSitter.this, SitterOnServiceActivity.class));
-            }
-        });
 
     }
 
@@ -127,31 +113,8 @@ public class NavigationToSitter extends AppCompatActivity implements OnMapReadyC
             if (locationList.size() > 0) {
                 //The last location in the list is the newest
                 Location location = locationList.get(locationList.size() - 1);
-                Log.i("MapsActivity", "Location: " + location.getLatitude() + " " + location.getLongitude());
+                //Log.i("MapsActivity", "Location: " + location.getLatitude() + " " + location.getLongitude());
                 mLastLocation = location;
-                if (mCurrLocationMarker != null) {
-                    mCurrLocationMarker.remove();
-                }
-
-                //Place current location marker
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.title("Current Position");
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
-
-                //move map camera
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
-                //mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-                final double getLat = location.getLatitude();
-                final double getLong = location.getLongitude();
-
-                ParentsLocationData ParentsData = new ParentsLocationData(getLat,getLong);
-
-                String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                DatabaseReference ParentsLocation = FirebaseDatabase.getInstance().getReference("ParentsLocation").child(userID);
-                ParentsLocation.setValue(ParentsData);
 
                 DatabaseReference SitterLocation = FirebaseDatabase.getInstance().getReference("BabysitterLocation").getRef();
 
@@ -168,11 +131,12 @@ public class NavigationToSitter extends AppCompatActivity implements OnMapReadyC
 
                             LatLng latlang2 = new LatLng(getSitterLat,getSitterLong);
 
+
                             markerOptions2.position(latlang2);
                             markerOptions2.title("Sitter Location");
                             markerOptions2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
                             sitterLocationMarker = mGoogleMap.addMarker(markerOptions2);
-
+                            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlang2, 15));
                         }
 
                     }
@@ -208,7 +172,7 @@ public class NavigationToSitter extends AppCompatActivity implements OnMapReadyC
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(NavigationToSitter.this,
+                                ActivityCompat.requestPermissions(TrackingMapActivity.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION);
                             }

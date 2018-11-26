@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
     <Button
-        android:id="@+id/btnSitterDecline"
+        android:id="@+id/btnSitterAccept"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -76,8 +76,8 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@android:color/holo_red_dark"
-        android:text="decline"
+        android:background="@android:color/holo_green_light"
+        android:text="accept"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnSitterContact"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
@@ -98,10 +98,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Sitter Address"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -111,7 +111,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/ivBsProfileImage"
-        app:layout_constraintTop_toBottomOf="@+id/tvSitterCharge" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSitterCharge"
+        android:isIndicator="true"
+        />
 
     <View
         android:id="@+id/divider2"
@@ -146,4 +148,17 @@
         android:text="this is the customer review"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSitterReview" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Address"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 </android.support.constraint.ConstraintLayout>

@@ -67,7 +67,10 @@
         <activity
             android:name=".NavigationToSitter"
             android:label="@string/title_activity_navigation_to_sitter" />
-        <activity android:name=".Retrieve"></activity>
+        <activity android:name=".Retrieve" />
+        <activity android:name=".SitterOnServiceActivity" />
+        <activity android:name=".RequestTimeActivity" />
+        <activity android:name=".TrackingMapActivity"></activity>
     </application>
 
 </manifest>

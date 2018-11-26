@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -18,7 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SitterProfileActivity extends AppCompatActivity {
 
-    private Button goToContact;
+    private Button goToContact, acceptRequest;
+    private RatingBar star;
     private TextView SitterName, ChargePerHour, SitterAddress, SitterReview;
     private DatabaseReference sitterProfileRef;
 
@@ -33,10 +35,13 @@ public class SitterProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         goToContact = findViewById(R.id.btnSitterContact);
+        acceptRequest = findViewById(R.id.btnSitterAccept);
         SitterName = findViewById(R.id.tvSitterProfileName);
         ChargePerHour = findViewById(R.id.tvSitterCharge);
         SitterAddress = findViewById(R.id.tvSitterAddress);
         SitterReview = findViewById(R.id.tvCustReview);
+        star = findViewById(R.id.ratingBar);
+
 
         sitterProfileRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
 
@@ -49,12 +54,16 @@ public class SitterProfileActivity extends AppCompatActivity {
                     String charge = postSnapshot.child("charge").getValue().toString();
                     String address = postSnapshot.child("userAddress").getValue().toString();
                     String review = postSnapshot.child("customerReview").getValue().toString();
+                    long rating = (long) postSnapshot.child("rating").getValue();
 
 
                     SitterName.setText(username);
-                    ChargePerHour.setText(charge+" per hour");
+                    ChargePerHour.setText("RM"+charge+" per hour");
                     SitterAddress.setText(address);
                     SitterReview.setText(review);
+                    star.setRating((float) rating);
+                    star.setFocusable(false);
+                    //star.setNumStars(5);
 
                 }
             }
@@ -68,6 +77,13 @@ public class SitterProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SitterProfileActivity.this, SitterContactActivity.class));
+            }
+        });
+
+        acceptRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SitterProfileActivity.this, NavigationToSitter.class));
             }
         });
     }

@@ -140,64 +140,12 @@ public class SearchbabysitterActivity extends AppCompatActivity {
                     selectedAge = Age30.getText().toString();
                 }
 
-                Toast.makeText(SearchbabysitterActivity.this,"gender: "+selectedGender,Toast.LENGTH_SHORT).show();
-                Toast.makeText(SearchbabysitterActivity.this,"age: "+selectedAge,Toast.LENGTH_SHORT).show();
+//                Retrieve retrieveList = new Retrieve();
+//                retrieveList.setGender(selectedGender);
+//                retrieveList.setAge(selectedAge);
 
-                sitterUserRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
-                sitterAvailable = FirebaseDatabase.getInstance().getReference("AvailableSitter");
+                startActivity(new Intent(SearchbabysitterActivity.this, Retrieve.class));
 
-
-
-
-                //startActivity(new Intent(SearchbabysitterActivity.this, AvailableSitterActivity.class));
-               // startActivity(new Intent(SearchbabysitterActivity.this, Retrieve.class));
-
-//                sitterUserRef.addValueEventListener(new ValueEventListener() {
-//
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//
-//                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//
-//
-//                            String availability = postSnapshot.child("availibilty").getValue().toString();
-//
-////                            if(availability.equals("false")){
-////                                startActivity(new Intent(SearchbabysitterActivity.this, NoAvailableSitter.class));
-////                            }
-//
-//                            if(availability.equals("true")){
-//                                String setuser = postSnapshot.child("username").getValue().toString();
-//                                String setrating = postSnapshot.child("rating").getValue().toString();
-//                                AvailableBabysitter setAvailable = new AvailableBabysitter(setuser,setrating);
-//                                sitterAvailable.child(dataSnapshot.getRef().getKey()).setValue(setAvailable).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        if(task.isSuccessful()){
-//                                            startActivity(new Intent(SearchbabysitterActivity.this, Retrieve.class));
-//                                        }
-//                                        else{
-//                                            Toast.makeText(SearchbabysitterActivity.this,"unable to proceed", Toast.LENGTH_SHORT).show();
-//                                        }
-//                                    }
-//                                });
-//
-//                            }
-//
-//
-//                            //Log.d(TAG, "======="+postSnapshot.child("username").getValue());
-//                            //Log.d(TAG, "======="+postSnapshot.child("rating").getValue());
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError error) {
-//                        Log.w("tag", "Failed to read value.", error.toException());
-//                    }
-//                });
-//
-//
             }
         });
 
