@@ -1,5 +1,6 @@
 package parentapp.ippi.ippiparent;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ public class SitterContactActivity extends AppCompatActivity {
     private TextView SitterContact, FamilyContact, NeighbourContact;
     private DatabaseReference SitterContactRef;
 
+    public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,9 @@ public class SitterContactActivity extends AppCompatActivity {
         FamilyContact = findViewById(R.id.tvFamilyPhone);
         NeighbourContact = findViewById(R.id.tvNeighbourPhone);
 
+        Intent intent = getIntent();
+        final String Sitter = intent.getStringExtra(USERNAME_KEY);
+
         SitterContactRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
 
         SitterContactRef.addValueEventListener(new ValueEventListener() {
@@ -38,14 +44,21 @@ public class SitterContactActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String sitterPhone = postSnapshot.child("userphonenumber").getValue().toString();
-                    String familyPhone = postSnapshot.child("familyphonenumber").getValue().toString();
-                    String neighbourPhone = postSnapshot.child("neighbourphone").getValue().toString();
+
+                    String username = postSnapshot.child("username").getValue().toString();
+
+                    if(username.equals(Sitter)){
+                        String sitterPhone = postSnapshot.child("userphonenumber").getValue().toString();
+                        String familyPhone = postSnapshot.child("familyphonenumber").getValue().toString();
+                        String neighbourPhone = postSnapshot.child("neighbourphone").getValue().toString();
 
 
-                    SitterContact.setText(sitterPhone);
-                    FamilyContact.setText(familyPhone);
-                    NeighbourContact.setText(neighbourPhone);
+                        SitterContact.setText(sitterPhone);
+                        FamilyContact.setText(familyPhone);
+                        NeighbourContact.setText(neighbourPhone);
+                    }
+
+
                 }
             }
 

@@ -7,28 +7,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class RequestTimeActivity extends AppCompatActivity {
+public class GiveRatingActivity extends AppCompatActivity {
 
-    private Button RequestTime;
+    private Button btnDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request_time);
+        setContentView(R.layout.activity_give_rating);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        RequestTime = findViewById(R.id.btnRequest);
+        btnDone = findViewById(R.id.buttonDone);
 
-        RequestTime.setOnClickListener(new View.OnClickListener() {
+        btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RequestTimeActivity.this, SitterOnServiceActivity.class));
+                startActivity(new Intent(GiveRatingActivity.this, AppMenu.class));
             }
         });
-    }
 
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -49,6 +49,9 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
         Emergency = findViewById(R.id.btnEmergency);
         lyTracking = findViewById(R.id.btnTracker);
         lyRequest = findViewById(R.id.btnRequestTime);
+        SitterName = findViewById(R.id.tvSitterProfileName);
+        ChargePerHour = findViewById(R.id.tvSitterCharge);
+        lyFinished = findViewById(R.id.btnServiceFinish);
 
         sitterProfileRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
 

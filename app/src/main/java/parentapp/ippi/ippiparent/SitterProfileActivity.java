@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +24,8 @@ public class SitterProfileActivity extends AppCompatActivity {
     private RatingBar star;
     private TextView SitterName, ChargePerHour, SitterAddress, SitterReview;
     private DatabaseReference sitterProfileRef;
+
+    public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
 
 
     @Override
@@ -42,29 +45,41 @@ public class SitterProfileActivity extends AppCompatActivity {
         SitterReview = findViewById(R.id.tvCustReview);
         star = findViewById(R.id.ratingBar);
 
+        Intent intent = getIntent();
+        final String message = intent.getStringExtra(USERNAME_KEY);
+
+        //Toast.makeText(SitterProfileActivity.this,"key:"+message, Toast.LENGTH_SHORT).show();
+
 
         sitterProfileRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
+
 
         sitterProfileRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
+                    //String user =postSnapshot.getValue().toString();
                     String username = postSnapshot.child("username").getValue().toString();
+
+                    if(username.equals(message)){
+
                     String charge = postSnapshot.child("charge").getValue().toString();
                     String address = postSnapshot.child("userAddress").getValue().toString();
                     String review = postSnapshot.child("customerReview").getValue().toString();
-                    long rating = (long) postSnapshot.child("rating").getValue();
+                    String rating = postSnapshot.child("rating").getValue().toString();
+
+                    Float r = Float.parseFloat(rating);
 
 
                     SitterName.setText(username);
                     ChargePerHour.setText("RM"+charge+" per hour");
                     SitterAddress.setText(address);
                     SitterReview.setText(review);
-                    star.setRating((float) rating);
+                    star.setRating(r);
                     star.setFocusable(false);
                     //star.setNumStars(5);
-
+                }
                 }
             }
 
@@ -76,14 +91,19 @@ public class SitterProfileActivity extends AppCompatActivity {
         goToContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SitterProfileActivity.this, SitterContactActivity.class));
+                Intent intent = new Intent(SitterProfileActivity.this, SitterContactActivity.class);
+                intent.putExtra(USERNAME_KEY, message);
+                startActivity(new Intent(intent));
+
             }
         });
 
         acceptRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SitterProfileActivity.this, NavigationToSitter.class));
+                Intent intent = new Intent(SitterProfileActivity.this, NavigationToSitter.class);
+                intent.putExtra(USERNAME_KEY, message);
+                startActivity(new Intent(intent));
             }
         });
     }

@@ -8,6 +8,58 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:441601666416:android:b538834c353977e6",
+        "android_client_info": {
+          "package_name": "com.example.user.happynanny"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441601666416-2ci4ltp9aq9288qk4sn70vnqnjsd5o8f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.user.happynanny",
+            "certificate_hash": "cd03beee13d28c141f58925fb9ee75cca33ebe6c"
+          }
+        },
+        {
+          "client_id": "441601666416-1nfcjlr8r9ukjbfcja8q1fbgc8a0phtt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.user.happynanny",
+            "certificate_hash": "b9608098198bf508341d1b6ea7ccac50c3574ffe"
+          }
+        },
+        {
+          "client_id": "441601666416-h1136q1lnm3ev2sjo63vmd1m634bgcql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbcGJ-MuMZEdGeQPeOo4JhAjh-aXoTHn4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441601666416-h1136q1lnm3ev2sjo63vmd1m634bgcql.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:441601666416:android:5f8eeb4eeb580f27",
         "android_client_info": {
           "package_name": "parentapp.ippi.ippiparent"

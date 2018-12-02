@@ -57,6 +57,8 @@ public class NavigationToSitter extends AppCompatActivity implements OnMapReadyC
     Marker mCurrLocationMarker, sitterLocationMarker;
     FusedLocationProviderClient mFusedLocationClient;
 
+    public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +143,8 @@ public class NavigationToSitter extends AppCompatActivity implements OnMapReadyC
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                 mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
 
+                Intent intent = getIntent();
+                final String Sitter = intent.getStringExtra(USERNAME_KEY);
                 //move map camera
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
                 //mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
@@ -162,16 +166,23 @@ public class NavigationToSitter extends AppCompatActivity implements OnMapReadyC
 
                         MarkerOptions markerOptions2 = new MarkerOptions();
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            final double getSitterLat = (double) postSnapshot.child("latitude").getValue();
-                            final double getSitterLong = (double) postSnapshot.child("longitude").getValue();
+
+                            String username = postSnapshot.child("username").getValue().toString();
+
+                            if(username.equals(Sitter)){
+
+                                final double getSitterLat = (double) postSnapshot.child("latitude").getValue();
+                                final double getSitterLong = (double) postSnapshot.child("longitude").getValue();
 
 
-                            LatLng latlang2 = new LatLng(getSitterLat,getSitterLong);
+                                LatLng latlang2 = new LatLng(getSitterLat,getSitterLong);
 
-                            markerOptions2.position(latlang2);
-                            markerOptions2.title("Sitter Location");
-                            markerOptions2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-                            sitterLocationMarker = mGoogleMap.addMarker(markerOptions2);
+                                markerOptions2.position(latlang2);
+                                markerOptions2.title("Sitter Location");
+                                markerOptions2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                                sitterLocationMarker = mGoogleMap.addMarker(markerOptions2);
+                            }
+
 
                         }
 

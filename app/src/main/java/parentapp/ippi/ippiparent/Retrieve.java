@@ -41,28 +41,10 @@ public class Retrieve extends AppCompatActivity {
     AvailableBabysitter babysitter;
     TextView viewProfile;
     Button accept, decline;
+    String username_text;
 
+    public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
 
-
-    public Retrieve( ) {
-
-
-    }
-
-    public void setGender(String SelectedGender){
-        this.gender = SelectedGender;
-    }
-    public String getGender(){
-        return gender;
-    }
-
-    public void setAge(String SelectedAge){
-        this.age = SelectedAge;
-    }
-
-    public String getAge(){
-        return age;
-    }
 
 
 
@@ -102,10 +84,14 @@ public class Retrieve extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     babysitter = ds.getValue(AvailableBabysitter.class);
+                    String SitterUsername = babysitter.getUsername().toString();
+                    String SitterRating = babysitter.getRating().toString();
                     //list2.push(babysitter.getUsername().toString()+"\nRating: "+babysitter.getRating().toString());
-                    list.add(babysitter.getUsername().toString()+"\nRating: "+babysitter.getRating().toString());
+                    list.add(SitterUsername);
 //                    ds.getKey();
                     lvBabysitter.setAdapter(adapter);
+
+
                 }
 
                 //adapter
@@ -124,9 +110,18 @@ public class Retrieve extends AppCompatActivity {
 
             @Override
             public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
-                startActivity(new Intent(Retrieve.this, SitterProfileActivity.class));
 
 
+               final String message = (String) parent.getItemAtPosition(position);
+               //String message =   babysitter.getUsername().toString();
+
+                Intent intent = new Intent(Retrieve.this, SitterProfileActivity.class);
+                intent.putExtra(USERNAME_KEY, message);
+
+
+                startActivity(new Intent(intent));
+
+//Toast.makeText(Retrieve.this,"key:"+item, Toast.LENGTH_SHORT).show();
 
                 //final String selectedFromList = (String) list.get(position);
 

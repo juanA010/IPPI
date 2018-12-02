@@ -51,7 +51,6 @@ public class ProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserID =mAuth.getCurrentUser().getUid();
         profileUserRef = FirebaseDatabase.getInstance().getReference().child("Parents").child(currentUserID);
-
         txt_username = findViewById(R.id.tvProfileName);
         txt_userphone = findViewById(R.id.tvProfilePhone);
         txt_useremail = findViewById(R.id.tvProfileEmail);

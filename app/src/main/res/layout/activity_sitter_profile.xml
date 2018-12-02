@@ -63,7 +63,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:text="contact"
-        app:layout_constraintEnd_toStartOf="@+id/btnSitterDecline"
+        app:layout_constraintEnd_toStartOf="@+id/btnSitterAccept"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 

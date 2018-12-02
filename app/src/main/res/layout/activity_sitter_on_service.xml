@@ -196,7 +196,7 @@
                 android:layout_gravity="start"
                 android:padding="5dp"
                 android:textStyle="bold"
-                android:text="Babysitting Finished"
+                android:text="Babysitting Finished (picked up)"
                 android:textAlignment="viewStart"
                 android:textColor="#ffffff"
                 android:textSize="16dp" />
