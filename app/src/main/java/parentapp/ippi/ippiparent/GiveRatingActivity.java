@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -14,71 +16,65 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Ref;
+public class GiveRatingActivity extends AppCompatActivity {
 
-public class SitterContactActivity extends AppCompatActivity {
-
-    private TextView SitterContact, FamilyContact, NeighbourContact;
-    private DatabaseReference SitterContactRef;
-
+    private Button btnDone;
+    private TextView SitterName;
+    private DatabaseReference sitterProfileRef;
     public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sitter_contact);
+        setContentView(R.layout.activity_give_rating);
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SitterContact = findViewById(R.id.tvSitterPhone);
-        FamilyContact = findViewById(R.id.tvFamilyPhone);
-        NeighbourContact = findViewById(R.id.tvNeighbourPhone);
-
+        btnDone = findViewById(R.id.buttonDone);
+        SitterName = findViewById(R.id.tvSitterProfileName);
         Intent intent = getIntent();
         final String Sitter = intent.getStringExtra(USERNAME_KEY);
 
-        SitterContactRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
-
-        SitterContactRef.addValueEventListener(new ValueEventListener() {
-
+        sitterProfileRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
+        sitterProfileRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
+                    //String user =postSnapshot.getValue().toString();
                     String username = postSnapshot.child("username").getValue().toString();
-
                     if(username.equals(Sitter)){
-                        String sitterPhone = postSnapshot.child("userphonenumber").getValue().toString();
-                        String familyPhone = postSnapshot.child("familyphonenumber").getValue().toString();
-                        String neighbourPhone = postSnapshot.child("neighbourphone").getValue().toString();
+                        SitterName.setText(username);
 
-
-                        SitterContact.setText(sitterPhone);
-                        FamilyContact.setText(familyPhone);
-                        NeighbourContact.setText(neighbourPhone);
                     }
-
-
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
                 Log.w("tag", "Failed to read value.", error.toException());
             }
         });
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(GiveRatingActivity.this, AppMenu.class));
+            }
+        });
+
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
             this.finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 }

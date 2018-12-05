@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -18,12 +19,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
 
+import parentapp.ippi.ippiparent.model.AvailableBabysitter;
+
 public class AvailableSitterActivity extends AppCompatActivity {
 
     private TextView goToSitterProfile;
     private TextView txt_username, txt_rating;
     private DatabaseReference sitterUserRef;
     private Button AcceptingRequest;
+    AvailableBabysitter babysitter;
     String TAG="tag";
 
     @Override
@@ -40,7 +44,7 @@ public class AvailableSitterActivity extends AppCompatActivity {
         AcceptingRequest = findViewById(R.id.btnAccept);
 
         ///sitterUserRef = FirebaseDatabase.getInstance().getReference("AvailableSitter").getRef();
-        sitterUserRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
+        sitterUserRef = FirebaseDatabase.getInstance().getReference("AvailableSitter").getRef();
 
         sitterUserRef.addValueEventListener(new ValueEventListener() {
 
@@ -48,12 +52,19 @@ public class AvailableSitterActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                    String username = postSnapshot.child("username").getValue().toString();
-                    String rating = postSnapshot.child("rating").getValue().toString();
-                    txt_username.setText(username);
-                    txt_rating.setText(rating+"/5");
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        babysitter = postSnapshot.getValue(AvailableBabysitter.class);
+
+//                        String username = postSnapshot.child("username").getValue().toString();
+//                        String rating = postSnapshot.child("rating").getValue().toString();
+                        txt_username.setText(babysitter.getUsername());
+                        txt_rating.setText(babysitter.getRating());
+
+
+
+
+
 
                     //Log.d(TAG, "======="+postSnapshot.child("username").getValue());
                     //Log.d(TAG, "======="+postSnapshot.child("rating").getValue());

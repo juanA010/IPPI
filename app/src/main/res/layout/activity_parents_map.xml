@@ -18,25 +18,26 @@
 
     </fragment>
 
-    <SearchView
+    <LinearLayout
         android:id="@+id/SearchBabysitter"
-        android:layout_width="347dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="294dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="68dp"
-        android:bottomLeftRadius="30dp"
-        android:bottomRightRadius="30dp"
-        android:radius="60dp"
-        android:background="@android:color/white"
-        android:topLeftRadius="30dp"
-        android:topRightRadius="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
+        android:layout_marginTop="8dp"
+        android:background="#ffffff"
+
+        android:orientation="horizontal"
+        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_filter_list_black_24dp" />
+
+    </LinearLayout>
 
 
 
