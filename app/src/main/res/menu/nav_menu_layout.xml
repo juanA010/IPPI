@@ -12,15 +12,9 @@
             />
 
         <item
-            android:id="@+id/mapId"
-            android:title="Find Babysitter"
-            android:icon="@drawable/ic_find_babysitter"
-            />
-
-        <item
-            android:id="@+id/paymentId"
-            android:title="Payment"
-            android:icon="@drawable/ic_payment"
+            android:id="@+id/notificationID"
+            android:title="Notification"
+            android:icon="@drawable/ic_notification"
             />
 
         <item

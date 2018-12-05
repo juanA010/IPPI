@@ -71,7 +71,9 @@
         <activity android:name=".SitterOnServiceActivity" />
         <activity android:name=".RequestTimeActivity" />
         <activity android:name=".TrackingMapActivity" />
-        <activity android:name=".GiveRatingActivity"></activity>
+        <activity android:name=".GiveRatingActivity" />
+        <activity android:name=".MessagesActivity" />
+        <activity android:name=".MessagesActivityDetails"></activity>
     </application>
 
 </manifest>

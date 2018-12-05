@@ -113,12 +113,6 @@ public class AppMenu extends AppCompatActivity implements NavigationView.OnNavig
 
         }
 
-        else if (item.getItemId()==R.id.paymentId){
-            intent = new Intent(this, PaymentActivity.class);
-            startActivity(intent);
-
-        }
-
         else if (item.getItemId()==R.id.historyId){
             intent = new Intent(this, BookingHistoryActivity.class);
             startActivity(intent);
@@ -133,8 +127,8 @@ public class AppMenu extends AppCompatActivity implements NavigationView.OnNavig
 
         }
 
-        else if (item.getItemId()==R.id.mapId){
-            intent = new Intent(this, ParentsMapActivity.class);
+        else if (item.getItemId()==R.id.notificationID){
+            intent = new Intent(this, MessagesActivity.class);
             startActivity(intent);
 
         }
