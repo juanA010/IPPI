@@ -20,9 +20,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SitterProfileActivity extends AppCompatActivity {
 
-    private Button goToContact, acceptRequest;
+    private Button goToContact, acceptRequest, seeLocation;
     private RatingBar star;
-    private TextView SitterName, ChargePerHour, SitterAddress, SitterReview;
+    private TextView SitterName, ChargePerHour, SitterAddress, SitterReview, SitterAge, SitterGender;
     private DatabaseReference sitterProfileRef;
 
     public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
@@ -39,10 +39,13 @@ public class SitterProfileActivity extends AppCompatActivity {
 
         goToContact = findViewById(R.id.btnSitterContact);
         acceptRequest = findViewById(R.id.btnSitterAccept);
+        seeLocation = findViewById(R.id.btnSeeLocation);
         SitterName = findViewById(R.id.tvSitterProfileName);
         ChargePerHour = findViewById(R.id.tvSitterCharge);
         SitterAddress = findViewById(R.id.tvSitterAddress);
         SitterReview = findViewById(R.id.tvCustReview);
+        SitterAge = findViewById(R.id.tvSitterAge);
+        SitterGender = findViewById(R.id.tvSitterGender);
         star = findViewById(R.id.ratingBar);
 
         Intent intent = getIntent();
@@ -64,6 +67,8 @@ public class SitterProfileActivity extends AppCompatActivity {
 
                     if(username.equals(message)){
 
+                    String age = postSnapshot.child("userAge").getValue().toString();
+                    String gender = postSnapshot.child("userGender").getValue().toString();
                     String charge = postSnapshot.child("charge").getValue().toString();
                     String address = postSnapshot.child("userAddress").getValue().toString();
                     String review = postSnapshot.child("customerReview").getValue().toString();
@@ -73,6 +78,13 @@ public class SitterProfileActivity extends AppCompatActivity {
 
 
                     SitterName.setText(username);
+                    SitterAge.setText(age+"y/o");
+                    if(gender.equals("F")){
+                        SitterGender.setText("Female");
+                    }
+                    if(gender.equals("M")){
+                        SitterGender.setText("Male");
+                    }
                     ChargePerHour.setText("RM"+charge+" per hour");
                     SitterAddress.setText(address);
                     SitterReview.setText(review);
@@ -99,6 +111,15 @@ public class SitterProfileActivity extends AppCompatActivity {
         });
 
         acceptRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SitterProfileActivity.this, NavigationToSitter.class);
+                intent.putExtra(USERNAME_KEY, message);
+                startActivity(new Intent(intent));
+            }
+        });
+
+        seeLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SitterProfileActivity.this, NavigationToSitter.class);

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="461dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/btnSeeLocation"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView

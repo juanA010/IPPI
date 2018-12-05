@@ -29,6 +29,7 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
     ActionBarDrawerToggle toggle;
     private DatabaseReference sitterProfileRef;
     private TextView SitterName, ChargePerHour;
+    public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,9 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
         ChargePerHour = findViewById(R.id.tvSitterCharge);
         lyFinished = findViewById(R.id.btnServiceFinish);
 
+        Intent intent = getIntent();
+        final String Sitter = intent.getStringExtra(USERNAME_KEY);
+
         sitterProfileRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
 
         sitterProfileRef.addValueEventListener(new ValueEventListener() {
@@ -61,11 +65,11 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     String username = postSnapshot.child("username").getValue().toString();
-                    String charge = postSnapshot.child("charge").getValue().toString();
-
-
-                    SitterName.setText(username);
-                    ChargePerHour.setText("RM"+charge+" per hour");
+                    if(username.equals(Sitter)){
+                        String charge = postSnapshot.child("charge").getValue().toString();
+                        SitterName.setText(username);
+                        ChargePerHour.setText("RM"+charge+" per hour");
+                    }
 
                 }
             }
@@ -79,7 +83,9 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
         SitterContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SitterOnServiceActivity.this, SitterContactActivity.class));
+                Intent intent = new Intent(SitterOnServiceActivity.this, SitterContactActivity.class);
+                intent.putExtra(USERNAME_KEY, Sitter);
+                startActivity(new Intent(intent));
             }
         });
 
@@ -100,7 +106,10 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
         lyFinished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SitterOnServiceActivity.this, PaymentActivity.class));
+                Intent intent = new Intent(SitterOnServiceActivity.this, PaymentActivity.class);
+                intent.putExtra(USERNAME_KEY, Sitter);
+                startActivity(new Intent(intent));
+
             }
         });
 

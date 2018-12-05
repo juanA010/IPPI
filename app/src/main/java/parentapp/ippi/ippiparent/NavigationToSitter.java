@@ -65,6 +65,9 @@ public class NavigationToSitter extends AppCompatActivity implements OnMapReadyC
         setContentView(R.layout.activity_navigation_to_sitter);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent sendUser = getIntent();
+        final String SitterName = sendUser.getStringExtra(USERNAME_KEY);
 //        getSupportActionBar().setTitle("Map Location Activity");
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -77,7 +80,10 @@ public class NavigationToSitter extends AppCompatActivity implements OnMapReadyC
         ArrivedSitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(NavigationToSitter.this, SitterOnServiceActivity.class));
+                Intent intent = new Intent(NavigationToSitter.this, SitterOnServiceActivity.class);
+                intent.putExtra(USERNAME_KEY, SitterName );
+                startActivity(new Intent(intent));
+
             }
         });
 
@@ -146,7 +152,7 @@ public class NavigationToSitter extends AppCompatActivity implements OnMapReadyC
                 Intent intent = getIntent();
                 final String Sitter = intent.getStringExtra(USERNAME_KEY);
                 //move map camera
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                 //mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
                 final double getLat = location.getLatitude();
                 final double getLong = location.getLongitude();

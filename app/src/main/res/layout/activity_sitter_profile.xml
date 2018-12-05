@@ -50,7 +50,7 @@
         android:layout_marginTop="8dp"
         android:text="Charge per hour"
         app:layout_constraintStart_toEndOf="@+id/ivBsProfileImage"
-        app:layout_constraintTop_toBottomOf="@+id/tvSitterProfileName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSitterAge" />
 
     <Button
         android:id="@+id/btnSitterContact"
@@ -110,10 +110,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/ivBsProfileImage"
-        app:layout_constraintTop_toBottomOf="@+id/tvSitterCharge"
         android:isIndicator="true"
-        />
+        app:layout_constraintStart_toEndOf="@+id/ivBsProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvSitterCharge" />
 
     <View
         android:id="@+id/divider2"
@@ -161,4 +160,45 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <Button
+        android:id="@+id/btnSeeLocation"
+        android:layout_width="117dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorAccent"
+        android:text="see location"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.847"
+        app:layout_constraintStart_toEndOf="@+id/tvSitterAddress"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <TextView
+        android:id="@+id/tvSitterAge"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Age"
+        app:layout_constraintStart_toEndOf="@+id/ivBsProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvSitterProfileName" />
+
+    <TextView
+        android:id="@+id/tvSitterGender"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Gender"
+        app:layout_constraintStart_toEndOf="@+id/tvSitterAge"
+        app:layout_constraintTop_toBottomOf="@+id/tvSitterProfileName" />
+
 </android.support.constraint.ConstraintLayout>

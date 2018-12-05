@@ -1,6 +1,7 @@
 package parentapp.ippi.ippiparent;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +44,10 @@ public class Retrieve extends AppCompatActivity {
     Button accept, decline;
     String username_text;
 
+    Dialog notAvailable;
+
+    public  final static String AGE_KEY = "parentapp.ippi.ippiparent.age_key";
+    public  final static String GENDER_KEY = "parentapp.ippi.ippiparent.gender_key";
     public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
 
 
@@ -56,6 +61,8 @@ public class Retrieve extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
 
 
@@ -80,19 +87,121 @@ public class Retrieve extends AppCompatActivity {
 
 
         ref.addValueEventListener(new ValueEventListener() {
+            Intent intent2 = getIntent();
+            final String age = intent2.getStringExtra(AGE_KEY);
+            final String gender = intent2.getStringExtra(GENDER_KEY);
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds: dataSnapshot.getChildren()){
-                    babysitter = ds.getValue(AvailableBabysitter.class);
-                    String SitterUsername = babysitter.getUsername().toString();
-                    String SitterRating = babysitter.getRating().toString();
-                    //list2.push(babysitter.getUsername().toString()+"\nRating: "+babysitter.getRating().toString());
-                    list.add(SitterUsername);
-//                    ds.getKey();
-                    lvBabysitter.setAdapter(adapter);
+                for(DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                    String sitterage = ds.child("userAge").getValue().toString();
+                    String sittergender = ds.child("userGender").getValue().toString();
+
+                    int r = Integer.parseInt(sitterage);
+
+                    if (age.equals("20-24") && gender.equals("Male")) {
+                        if ((r >= 20 && r <= 24) && sittergender.equals("M")) {
+                            babysitter = ds.getValue(AvailableBabysitter.class);
+                            String SitterUsername = babysitter.getUsername().toString();
+                            list.add(SitterUsername);
+                            lvBabysitter.setAdapter(adapter);
+
+                        }
+
+                    }
+                    if (age.equals("20-24") && gender.equals("Female")) {
+                        if ((r >= 20 && r <= 24) && sittergender.equals("F")) {
+                            babysitter = ds.getValue(AvailableBabysitter.class);
+                            String SitterUsername = babysitter.getUsername().toString();
+                            list.add(SitterUsername);
+                            lvBabysitter.setAdapter(adapter);
+
+                        }
+                    }
+
+                    if (age.equals("20-24") && gender.equals("Any")) {
+                        if ((r >= 20 && r <= 24)) {
+                            babysitter = ds.getValue(AvailableBabysitter.class);
+                            String SitterUsername = babysitter.getUsername().toString();
+                            list.add(SitterUsername);
+                            lvBabysitter.setAdapter(adapter);
+
+                        }
+                    }
 
 
+                    if (age.equals("25-29") && gender.equals("Male")) {
+                        if ((r >= 25 && r <= 29) && sittergender.equals("M")) {
+                            babysitter = ds.getValue(AvailableBabysitter.class);
+                            String SitterUsername = babysitter.getUsername().toString();
+                            list.add(SitterUsername);
+                            lvBabysitter.setAdapter(adapter);
+
+                        }
+                    }
+
+                    if (age.equals("25-29") && gender.equals("Female")) {
+                        if (((r >= 25 && r <= 29) && sittergender.equals("F"))) {
+                                babysitter = ds.getValue(AvailableBabysitter.class);
+                                String SitterUsername = babysitter.getUsername().toString();
+                                list.add(SitterUsername);
+                                lvBabysitter.setAdapter(adapter);
+
+                        }
+
+                    }
+
+
+                    if (age.equals("25-29") && gender.equals("Any")) {
+                        if ((r >= 25 && r <= 29)) {
+                            babysitter = ds.getValue(AvailableBabysitter.class);
+                            String SitterUsername = babysitter.getUsername().toString();
+                            list.add(SitterUsername);
+                            lvBabysitter.setAdapter(adapter);
+
+                        }
+
+                    }
+
+                    if (age.equals("30 above") && gender.equals("Male")) {
+                        if ((r >=30) && sittergender.equals("M")) {
+                            babysitter = ds.getValue(AvailableBabysitter.class);
+                            String SitterUsername = babysitter.getUsername().toString();
+                            list.add(SitterUsername);
+                            lvBabysitter.setAdapter(adapter);
+
+                        }
+
+                    }
+
+                    if (age.equals("30 above") && gender.equals("Female")) {
+                        if ((r >=30) && sittergender.equals("F")) {
+                            babysitter = ds.getValue(AvailableBabysitter.class);
+                            String SitterUsername = babysitter.getUsername().toString();
+                            list.add(SitterUsername);
+                            lvBabysitter.setAdapter(adapter);
+
+                        }
+
+                    }
+
+                    if (age.equals("30 above") && gender.equals("Any")) {
+                        if ((r >=30)) {
+                            babysitter = ds.getValue(AvailableBabysitter.class);
+                            String SitterUsername = babysitter.getUsername().toString();
+                            list.add(SitterUsername);
+                            lvBabysitter.setAdapter(adapter);
+
+                        }
+
+                    }
+
+                    else if(list.isEmpty()){
+                        Toast.makeText(Retrieve.this,"There is no available babysitter at this moment. We apologies for the inconvenient occur. Please choose another preference or wat for a while for the babysitter to be available. Thank you!", Toast.LENGTH_LONG).show();
+                    }
                 }
+
 
                 //adapter
 
@@ -111,6 +220,8 @@ public class Retrieve extends AppCompatActivity {
             @Override
             public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
 
+
+                //Log.d("log", "age: "+age+" gender "+gender);
 
                final String message = (String) parent.getItemAtPosition(position);
                //String message =   babysitter.getUsername().toString();

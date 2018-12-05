@@ -41,6 +41,9 @@ public class SearchbabysitterActivity extends AppCompatActivity {
     private EditText etStartTime, etEndTime;
     private Button btnGet;
 
+    public  final static String AGE_KEY = "parentapp.ippi.ippiparent.age_key";
+    public  final static String GENDER_KEY = "parentapp.ippi.ippiparent.gender_key";
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -82,8 +85,9 @@ public class SearchbabysitterActivity extends AppCompatActivity {
                                     etStartTime.setText(sHour + ":" + sMinute);
                                 }
                             }
-                        }, hour, minutes, false);
+                        }, hour, minutes, true);
                 picker.show();
+
             }
         });
 
@@ -107,7 +111,7 @@ public class SearchbabysitterActivity extends AppCompatActivity {
                                 }
 
                             }
-                        }, hour2, minutes2, false);
+                        }, hour2, minutes2, true);
                 picker2.show();
             }
         });
@@ -140,11 +144,21 @@ public class SearchbabysitterActivity extends AppCompatActivity {
                     selectedAge = Age30.getText().toString();
                 }
 
+               // String [] filter = {selectedGender,selectedAge};
+
+                Intent intent = new Intent(SearchbabysitterActivity.this, Retrieve.class);
+                intent.putExtra(AGE_KEY, selectedAge);
+                intent.putExtra(GENDER_KEY, selectedGender);
+                startActivity(new Intent(intent));
+
+
+
+
 //                Retrieve retrieveList = new Retrieve();
 //                retrieveList.setGender(selectedGender);
 //                retrieveList.setAge(selectedAge);
 
-                startActivity(new Intent(SearchbabysitterActivity.this, Retrieve.class));
+
 
             }
         });

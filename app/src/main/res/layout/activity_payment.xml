@@ -64,7 +64,7 @@
             android:padding="16dp">
 
             <TextView
-                android:layout_width="297dp"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:text="Start Time"
                 android:textStyle="bold" />
@@ -87,7 +87,7 @@
             android:padding="16dp">
 
             <TextView
-                android:layout_width="297dp"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:text="End Time"
                 android:textStyle="bold" />
@@ -110,7 +110,7 @@
             android:padding="16dp">
 
             <TextView
-                android:layout_width="297dp"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:text="Request Time"
                 android:textStyle="bold" />
@@ -133,13 +133,13 @@
             android:padding="16dp">
 
             <TextView
-                android:layout_width="297dp"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:text="New End Time"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvExtraCharge"
+                android:id="@+id/tvNewTime"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 android:text="time"
@@ -156,13 +156,13 @@
             android:padding="16dp">
 
             <TextView
-                android:layout_width="297dp"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:text="Additional Charge"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvOriCharge"
+                android:id="@+id/tvExtraCharge"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 android:text="RM"
@@ -179,13 +179,13 @@
             android:padding="16dp">
 
             <TextView
-                android:layout_width="297dp"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:text="Total Charge"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvNewCharge"
+                android:id="@+id/tvTotalCharge"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 android:text="RM"
