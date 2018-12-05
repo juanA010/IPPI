@@ -43,6 +43,8 @@ public class SearchbabysitterActivity extends AppCompatActivity {
 
     public  final static String AGE_KEY = "parentapp.ippi.ippiparent.age_key";
     public  final static String GENDER_KEY = "parentapp.ippi.ippiparent.gender_key";
+    public  final static String START_KEY = "parentapp.ippi.ippiparent.start_key";
+    public  final static String END_KEY = "parentapp.ippi.ippiparent.end_key";
 
 
     @Override

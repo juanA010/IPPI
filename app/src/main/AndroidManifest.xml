@@ -73,7 +73,8 @@
         <activity android:name=".TrackingMapActivity" />
         <activity android:name=".GiveRatingActivity" />
         <activity android:name=".MessagesActivity" />
-        <activity android:name=".MessagesActivityDetails"></activity>
+        <activity android:name=".MessagesActivityDetails" />
+        <activity android:name=".BookingHistoryDetail"></activity>
     </application>
 
 </manifest>

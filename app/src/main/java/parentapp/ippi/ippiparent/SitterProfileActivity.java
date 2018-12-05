@@ -113,6 +113,8 @@ public class SitterProfileActivity extends AppCompatActivity {
         acceptRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent intent = new Intent(SitterProfileActivity.this, NavigationToSitter.class);
                 intent.putExtra(USERNAME_KEY, message);
                 startActivity(new Intent(intent));
