@@ -111,6 +111,7 @@ public class SitterProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SitterProfileActivity.this, SitterContactActivity.class);
+
                 intent.putExtra(USERNAME_KEY, message);
                 startActivity(new Intent(intent));
 
@@ -161,7 +162,10 @@ public class SitterProfileActivity extends AppCompatActivity {
                                 createBooking.child(bookID).child("SitterName").setValue(username);
                                 createBooking.child(bookID).child("SitterLocation").setValue(location);
                                 createBooking.child(bookID).child("SitterContact").setValue(phoneNumber);
+                                createBooking.child(bookID).child("SitterRating").setValue("null");
 
+                                final DatabaseReference createReceiptSitterName= FirebaseDatabase.getInstance().getReference("BookingReceipt").child(userID);
+                                createReceiptSitterName.child(receiptID).child("sitterName").setValue(username);
                                 generatePayment payment = new generatePayment();
                                 payment.calculatePayment(bookID,receiptID);
 
@@ -178,6 +182,7 @@ public class SitterProfileActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(SitterProfileActivity.this, NavigationToSitter.class);
                 intent.putExtra(BOOK_KEY, bookID);
+                intent.putExtra(RECEIPT_KEY,receiptID);
                 intent.putExtra(USERNAME_KEY, message);
                 startActivity(new Intent(intent));
 

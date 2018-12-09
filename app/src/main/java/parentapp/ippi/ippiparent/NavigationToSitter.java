@@ -59,6 +59,8 @@ public class NavigationToSitter extends AppCompatActivity implements OnMapReadyC
 
     public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
     public  final static String BOOK_KEY = "parentapp.ippi.ippiparent.book_key";
+    public  final static String RECEIPT_KEY = "parentapp.ippi.ippiparent.receipt_key";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class NavigationToSitter extends AppCompatActivity implements OnMapReadyC
         Intent sendUser = getIntent();
         final String SitterName = sendUser.getStringExtra(USERNAME_KEY);
         final String bookID = sendUser.getStringExtra(BOOK_KEY);
+        final String receiptID = sendUser.getStringExtra(RECEIPT_KEY);
 //        getSupportActionBar().setTitle("Map Location Activity");
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -84,6 +87,7 @@ public class NavigationToSitter extends AppCompatActivity implements OnMapReadyC
             public void onClick(View v) {
                 Intent intent = new Intent(NavigationToSitter.this, SitterOnServiceActivity.class);
                 intent.putExtra(BOOK_KEY, bookID);
+                intent.putExtra(RECEIPT_KEY, receiptID);
                 intent.putExtra(USERNAME_KEY, SitterName );
                 startActivity(new Intent(intent));
 

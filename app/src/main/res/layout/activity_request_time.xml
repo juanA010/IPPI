@@ -21,14 +21,14 @@
         android:padding="16dp">
 
         <TextView
-            android:layout_width="297dp"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:text="Start Time"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvInitial"
-            android:layout_width="48dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="time"
             android:textColor="#000000"
@@ -44,14 +44,14 @@
         android:padding="16dp">
 
         <TextView
-            android:layout_width="297dp"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:text="End Time"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvFinal"
-            android:layout_width="48dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="time"
             android:textColor="#000000"
@@ -64,20 +64,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="16dp">
 
         <TextView
-            android:layout_width="297dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="Request Time"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/tvRequest"
-            android:layout_width="48dp"
+            android:id="@+id/etReqHour"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="hour"
+            android:text="0"
             android:textColor="#000000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":  "
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etReqMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="min"
+            android:text="0"
+            android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -91,16 +115,15 @@
         android:padding="16dp">
 
         <TextView
-            android:layout_width="297dp"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:text="Extra Charge"
+            android:text="New End Time"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvExtraCharge"
-            android:layout_width="48dp"
+            android:id="@+id/tvNewEnd"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RM"
             android:textColor="#000000"
             android:textStyle="bold" />
 
@@ -113,14 +136,14 @@
         android:padding="16dp">
 
         <TextView
-            android:layout_width="297dp"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:text="Original Charge"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvOriCharge"
-            android:layout_width="48dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="RM"
             android:textColor="#000000"
@@ -135,21 +158,27 @@
         android:padding="16dp">
 
         <TextView
-            android:layout_width="297dp"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:text="New Charge"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvNewCharge"
-            android:layout_width="48dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RM"
             android:textColor="#000000"
             android:textStyle="bold" />
 
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCalculateNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="calculate new charge"
+        android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/btnRequest"

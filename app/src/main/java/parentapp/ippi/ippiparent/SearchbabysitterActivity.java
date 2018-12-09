@@ -104,6 +104,8 @@ public class SearchbabysitterActivity extends AppCompatActivity {
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                 int hour = hourOfDay;
                 String format;
+                String mins = null;
+                String hours = null;
                 if(hour == 0){
                     hour+=12;
                     format = "AM";
@@ -119,7 +121,20 @@ public class SearchbabysitterActivity extends AppCompatActivity {
                     format = "AM";
                 }
 
-                String timestart= new String (hour+":"+minute+" "+format);
+                if(minute <10){
+                    mins = "0"+minute;
+                }
+                else{
+                    mins = String.valueOf(minute);
+                }
+                if(hour<10){
+                    hours = "0"+hour;
+                }
+                else{
+                    hours = String.valueOf(hour);
+                }
+
+                String timestart= new String (hours+":"+mins+" "+format);
                 createBooking.getReference("BookingData").child(userID).child(newBooked).child("BookDate").setValue(bookDate);
                 createBooking.getReference("BookingData").child(userID).child(newBooked).child("BookStart").setValue(timestart);
                 createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("BookDate").setValue(bookDate);
@@ -134,6 +149,8 @@ public class SearchbabysitterActivity extends AppCompatActivity {
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                 int hour = hourOfDay;
                 String format;
+                String mins = null;
+                String hours = null;
                 if(hour == 0){
                     hour+=12;
                     format = "AM";
@@ -149,16 +166,31 @@ public class SearchbabysitterActivity extends AppCompatActivity {
                 else{
                     format = "AM";
                 }
-                String timeend= new String (hour+":"+minute+" "+format);
+
+                if(minute <10){
+                    mins = "0"+minute;
+                }
+                else{
+                    mins = String.valueOf(minute);
+                }
+                if(hour<10){
+                    hours = "0"+hour;
+                }
+                else{
+                    hours = String.valueOf(hour);
+                }
+
+                String timeend= new String (hours+":"+mins+" "+format);
                 createBooking.getReference("BookingData").child(userID).child(newBooked).child("BookEnd").setValue(timeend);
                 createBooking.getReference("BookingData").child(userID).child(newBooked).child("ReceiptID").setValue(newReceipt);
+                createBooking.getReference("BookingData").child(userID).child(newBooked).child("TotalNewCharge").setValue("null");
                 //ReceiptModel receiptData = new ReceiptModel("null","N/A","N/A","N/A","N/A");
                 createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("endTime").setValue(timeend);
                 createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("sitterName").setValue("null");
                 createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("reqTime").setValue("null");
                 createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("newEnd").setValue("null");
-                createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("addCharge").setValue("null");
-                createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("totalCharge").setValue("null");
+                createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("TotalCharge").setValue("null");
+                createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("TotalNewCharge").setValue("null");
 
                 Toast.makeText(SearchbabysitterActivity.this, timeend,Toast.LENGTH_SHORT).show();
             }

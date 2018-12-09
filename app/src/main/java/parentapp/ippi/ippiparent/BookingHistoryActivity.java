@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +44,9 @@ public class BookingHistoryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        MsgDB = FirebaseDatabase.getInstance().getReference().child("BookingData");
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        MsgDB = FirebaseDatabase.getInstance().getReference().child("BookingData").child(userID);
 
 //        adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,arrayList);
 
@@ -57,7 +60,7 @@ public class BookingHistoryActivity extends AppCompatActivity {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     String BOOKINGID = ds.getKey().toString();
                     String Date = ds.child("BookDate").getValue(String.class);
-                    String Times = ds.child("BookTime").getValue(String.class);
+                    String Times = ds.child("BookStart").getValue(String.class);
                     String Name = ds.child("SitterName").getValue(String.class);
 
                     list.add(BOOKINGID+ " / " + Date);

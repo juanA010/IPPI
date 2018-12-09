@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Sitter Name"
-        app:layout_constraintStart_toEndOf="@+id/ivSitterImage"
-        app:layout_constraintTop_toBottomOf="@+id/tvBookTime" />
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/tvBookDate" />
 
     <ImageView
         android:id="@+id/ivSitterImage"
@@ -23,7 +23,7 @@
         android:layout_height="75dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:padding="10dp"
         android:src="@drawable/profile_avatar"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +33,8 @@
         android:id="@+id/tvBookDate"
         android:layout_width="125dp"
         android:layout_height="17dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Date"
         app:layout_constraintStart_toEndOf="@+id/textView3"
@@ -75,9 +77,9 @@
         android:id="@+id/tvSeeDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="16dp"
         android:text="See Detail"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toEndOf="@+id/tvBookSitter"
         app:layout_constraintTop_toBottomOf="@+id/tvBookTime" />
 
@@ -100,5 +102,16 @@
         android:src="@drawable/ic_date"
         app:layout_constraintStart_toEndOf="@+id/ivSitterImage"
         app:layout_constraintTop_toBottomOf="@+id/tvBooking" />
+
+    <ImageView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_profile"
+        app:layout_constraintStart_toEndOf="@+id/ivSitterImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvBookDate" />
 
 </android.support.constraint.ConstraintLayout>

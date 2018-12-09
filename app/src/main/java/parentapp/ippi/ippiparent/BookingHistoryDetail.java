@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,7 +42,9 @@ public class BookingHistoryDetail extends AppCompatActivity {
         showRating = findViewById(R.id.SitterRating);
         showReceipt = findViewById(R.id.tvViewReceipt);
 
-        BookingDB = FirebaseDatabase.getInstance().getReference().child("BookingData").child(bookID);
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        BookingDB = FirebaseDatabase.getInstance().getReference().child("BookingData").child(userID).child(bookID);
 
         BookingDB.addValueEventListener(new ValueEventListener() {
             @Override
@@ -51,9 +54,10 @@ public class BookingHistoryDetail extends AppCompatActivity {
                     String SitterLocation = dataSnapshot.child("SitterLocation").getValue().toString();
                     String SitterContact = dataSnapshot.child("SitterContact").getValue().toString();
                     String BookDate = dataSnapshot.child("BookDate").getValue().toString();
-                    String BookTime = dataSnapshot.child("BookTime").getValue().toString();
+                    String BookTime = dataSnapshot.child("BookStart").getValue().toString();
                     String TotalCharge = dataSnapshot.child("TotalCharge").getValue().toString();
-                    String SitterRating = dataSnapshot.child("Rating").getValue().toString();
+                    String TotalNewCharge = dataSnapshot.child("TotalNewCharge").getValue().toString();
+                    String SitterRating = dataSnapshot.child("SitterRating").getValue().toString();
                     final String ReceiptID = dataSnapshot.child("ReceiptID").getValue().toString();
                     Float r = Float.parseFloat(SitterRating);
 
@@ -63,7 +67,14 @@ public class BookingHistoryDetail extends AppCompatActivity {
                     txt_contact.setText(SitterContact);
                     txt_date.setText(BookDate);
                     txt_time.setText(BookTime);
-                    txt_charge.setText(TotalCharge);
+
+                    if(!TotalNewCharge.equals("null")){
+                        txt_charge.setText("RM"+TotalNewCharge);
+                    }
+                    if(TotalNewCharge.equals("null")){
+                        txt_charge.setText("RM"+TotalCharge);
+                    }
+
                     showRating.setRating(r);
                     showRating.setFocusable(false);
 

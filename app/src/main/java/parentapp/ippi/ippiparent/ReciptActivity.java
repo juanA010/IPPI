@@ -21,7 +21,7 @@ import parentapp.ippi.ippiparent.model.ReceiptModel;
 
 public class ReciptActivity extends AppCompatActivity {
 
-    private TextView ReceiptID, SitterName, ChargePerHour, startTime, endTime, reqTime, newTime, addCharge, totalCharge;
+    private TextView ReceiptID, SitterName, BookDate, ChargePerHour, startTime, endTime, reqTime, newTime, addCharge, totalCharge;
     private DatabaseReference parentNameRef, sitterProfileRef, displayReceipt;
     private FirebaseAuth mAuth;
     private String currentUserID;
@@ -39,12 +39,12 @@ public class ReciptActivity extends AppCompatActivity {
 
         ReceiptID = findViewById(R.id.tvBookID);
         SitterName = findViewById(R.id.tvSitterProfileName);
+        BookDate = findViewById(R.id.tvDate);
         ChargePerHour = findViewById(R.id.tvSitterCharge);
         startTime = findViewById(R.id.tvInitial);
         endTime = findViewById(R.id.tvFinal);
         reqTime = findViewById(R.id.tvRequest);
         newTime = findViewById(R.id.tvNewTime);
-        addCharge = findViewById(R.id.tvExtraCharge);
         totalCharge = findViewById(R.id.tvTotalCharge);
         receipt = new ReceiptModel();
 
@@ -55,24 +55,11 @@ public class ReciptActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID =mAuth.getCurrentUser().getUid();
-        parentNameRef = FirebaseDatabase.getInstance().getReference().child("Parents").child(currentUserID);
-        parentNameRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    String parentName= dataSnapshot.child("username").getValue().toString();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         final String receiptID = getIntent().getExtras().getString("ReceiptID");
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        displayReceipt = FirebaseDatabase.getInstance().getReference().child("BookingReceipt");
+        displayReceipt = FirebaseDatabase.getInstance().getReference().child("BookingReceipt").child(userID);
         displayReceipt.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -81,24 +68,33 @@ public class ReciptActivity extends AppCompatActivity {
                     String getID = postSnapshot.getKey().toString();
                     if (getID.equals(receiptID)) {
 
-                        String sitterName = postSnapshot.child("SitterName").getValue().toString();
+                        String sitterName = postSnapshot.child("sitterName").getValue().toString();
+                        String bookDate =  postSnapshot.child("BookDate").getValue().toString();
                         String start = postSnapshot.child("startTime").getValue().toString();
                         String end = postSnapshot.child("endTime").getValue().toString();
                         String req = postSnapshot.child("reqTime").getValue().toString();
                         String timeNew = postSnapshot.child("newEnd").getValue().toString();
-                        String add = postSnapshot.child("addCharge").getValue().toString();
-                        String total = postSnapshot.child("totalCharge").getValue().toString();
+                        String newtotal = postSnapshot.child("TotalNewCharge").getValue().toString();
+                        String total = postSnapshot.child("TotalCharge").getValue().toString();
 
 
 
                         ReceiptID.setText(getID);
                         SitterName.setText(sitterName);
+                        BookDate.setText(bookDate);
                         startTime.setText(start);
                         endTime.setText(end);
                         reqTime.setText(req);
                         newTime.setText(timeNew);
-                        addCharge.setText("RM"+add);
-                        totalCharge.setText("RM"+total);
+
+                        if(!newtotal.equals("null")){
+                            totalCharge.setText("RM"+newtotal);
+                        }
+
+                        if(newtotal.equals("null")){
+                            totalCharge.setText("RM"+total);
+                        }
+
 
                     }
                 }

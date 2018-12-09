@@ -14,7 +14,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +32,9 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
     private DatabaseReference sitterProfileRef;
     private TextView SitterName, ChargePerHour;
     public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
+    public  final static String BOOK_KEY = "parentapp.ippi.ippiparent.book_key";
+    public  final static String RECEIPT_KEY = "parentapp.ippi.ippiparent.receipt_key";
+    public  final static String ID_KEY = "parentapp.ippi.ippiparent.user_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,22 +61,24 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
 
         Intent intent = getIntent();
         final String Sitter = intent.getStringExtra(USERNAME_KEY);
+        final String bookID = intent.getStringExtra(BOOK_KEY);
+        final String receiptID = intent.getStringExtra(RECEIPT_KEY);
+        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        sitterProfileRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
+
+        sitterProfileRef = FirebaseDatabase.getInstance().getReference().child("BookingData").child(userID).child(bookID);
 
         sitterProfileRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                    String username = postSnapshot.child("username").getValue().toString();
-                    if(username.equals(Sitter)){
-                        String charge = postSnapshot.child("charge").getValue().toString();
+                    if(dataSnapshot.exists()){
+                        String username = dataSnapshot.child("SitterName").getValue().toString();
                         SitterName.setText(username);
-                        ChargePerHour.setText("RM"+charge+" per hour");
+                        ChargePerHour.setText("RM10 / per hour");
                     }
 
-                }
+
             }
 
             @Override
@@ -99,14 +106,29 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
         lyRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SitterOnServiceActivity.this, RequestTimeActivity.class));
+
+                Intent getData = getIntent();
+                final String bookID = getData.getStringExtra(BOOK_KEY);
+                final String receiptID = getData.getStringExtra(RECEIPT_KEY);
+                final String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                Intent intent = new Intent(SitterOnServiceActivity.this, RequestTimeActivity.class);
+                intent.putExtra(ID_KEY,user );
+                intent.putExtra(BOOK_KEY, bookID);
+                intent.putExtra(RECEIPT_KEY, receiptID);
+
+                //Toast.makeText(SitterOnServiceActivity.this, "data "+user+" "+bookID+" "+receiptID, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(intent));
             }
         });
 
         lyFinished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(SitterOnServiceActivity.this, PaymentActivity.class);
+                intent.putExtra(BOOK_KEY, bookID);
+                intent.putExtra(RECEIPT_KEY, receiptID);
                 intent.putExtra(USERNAME_KEY, Sitter);
                 startActivity(new Intent(intent));
 
