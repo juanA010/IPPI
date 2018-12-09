@@ -1,15 +1,12 @@
 package parentapp.ippi.ippiparent.model;
 
 public class ReceiptModel {
-    String ParentName, SitterName, startTime, endTime, reqTime, newEnd, addCharge, totalCharge;
+    String SitterName, startTime, endTime, reqTime, newEnd, addCharge, totalCharge;
 
 
-    public ReceiptModel(String ParentName, String SitterName, String startTime, String endTime, String reqTime, String newEnd, String addCharge, String totalCharge) {
+    public ReceiptModel(String SitterName, String reqTime, String newEnd, String addCharge, String totalCharge) {
 
-        this.ParentName = ParentName;
         this.SitterName = SitterName;
-        this.startTime = startTime;
-        this.endTime = endTime;
         this.reqTime = reqTime;
         this.newEnd = newEnd;
         this.addCharge = addCharge;
@@ -20,13 +17,6 @@ public class ReceiptModel {
     public ReceiptModel() {
     }
 
-    public String getParentName() {
-        return ParentName;
-    }
-
-    public void setParentName(String parentName) {
-        ParentName = parentName;
-    }
 
     public String getSitterName() {
         return SitterName;
@@ -36,21 +26,6 @@ public class ReceiptModel {
         SitterName = sitterName;
     }
 
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
 
     public String getReqTime() {
         return reqTime;

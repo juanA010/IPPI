@@ -21,7 +21,7 @@ public class MessagesActivityDetails extends AppCompatActivity {
 
 
         MsgDB = FirebaseDatabase.getInstance().getReference().child("Messages");
-        ;
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages_details);

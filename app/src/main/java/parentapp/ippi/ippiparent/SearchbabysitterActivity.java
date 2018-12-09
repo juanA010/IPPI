@@ -15,20 +15,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 import parentapp.ippi.ippiparent.model.AvailableBabysitter;
+import parentapp.ippi.ippiparent.model.ReceiptModel;
 
 public class SearchbabysitterActivity extends AppCompatActivity {
 
@@ -36,15 +43,17 @@ public class SearchbabysitterActivity extends AppCompatActivity {
     private RadioGroup GenderSelect, AgeSelect;
     private String selectedGender, selectedAge;
     private Button BtnSearchBs;
-    private DatabaseReference sitterUserRef, sitterAvailable;
-    private TimePickerDialog picker, picker2;
-    private EditText etStartTime, etEndTime;
-    private Button btnGet;
+    private TimePicker timeStart, timeEnd;
+    private Calendar calendar;
+    private FirebaseAuth mAuth;
+    private DatabaseReference reference;
+    private FirebaseDatabase createBooking = FirebaseDatabase.getInstance();
+    private FirebaseDatabase createReceipt = FirebaseDatabase.getInstance();
 
     public  final static String AGE_KEY = "parentapp.ippi.ippiparent.age_key";
     public  final static String GENDER_KEY = "parentapp.ippi.ippiparent.gender_key";
-    public  final static String START_KEY = "parentapp.ippi.ippiparent.start_key";
-    public  final static String END_KEY = "parentapp.ippi.ippiparent.end_key";
+    public  final static String BOOK_KEY = "parentapp.ippi.ippiparent.book_key";
+    public  final static String RECEIPT_KEY = "parentapp.ippi.ippiparent.receipt_key";
 
 
     @Override
@@ -64,61 +73,96 @@ public class SearchbabysitterActivity extends AppCompatActivity {
         Age20 = findViewById(R.id.Age20);
         Age25= findViewById(R.id.Age25);
         Age30 = findViewById(R.id.Age30);
-        etStartTime = findViewById(R.id.TimeStart);
-        etEndTime = findViewById(R.id.TimeEnd);
+        timeStart = findViewById(R.id.TimeStart);
+        timeEnd = findViewById(R.id.TimeEnd);
+        calendar = Calendar.getInstance();
+//        etStartTime = findViewById(R.id.TimeStart);
+//        etEndTime = findViewById(R.id.TimeEnd);
 
 
-        etStartTime.setInputType(InputType.TYPE_NULL);
-        etStartTime.setOnClickListener(new View.OnClickListener() {
+
+        timeStart.setIs24HourView(false);
+        timeEnd.setIs24HourView(false);
+        mAuth = FirebaseAuth.getInstance();
+        final String userID = mAuth.getCurrentUser().getUid();
+
+        Random r = new Random();
+        int randomID = r.nextInt((60000-1)+1) + 1;
+        int randomID2 = r.nextInt((11-0)+0)+0;
+
+        final SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        final String bookDate = df.format(calendar.getTime()).toString();
+
+
+        final String newBooked = new String("HN-"+randomID+"-"+randomID2);
+        final String newReceipt = new String("BR-"+randomID+"-"+randomID2);
+
+
+
+        timeStart.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
-            public void onClick(View v) {
-                final Calendar cldr = Calendar.getInstance();
-                int hour = cldr.get(Calendar.HOUR_OF_DAY);
-                int minutes = cldr.get(Calendar.MINUTE);
-                // time picker dialog
-                picker = new TimePickerDialog(SearchbabysitterActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                if(sMinute==00){
-                                    etStartTime.setText(sHour + ":" + sMinute+"0");
-                                }
-                                else{
-                                    etStartTime.setText(sHour + ":" + sMinute);
-                                }
-                            }
-                        }, hour, minutes, true);
-                picker.show();
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                int hour = hourOfDay;
+                String format;
+                if(hour == 0){
+                    hour+=12;
+                    format = "AM";
+                }
+                else if( hour == 12){
+                    format ="PM";
+                }
+                else if(hour >12){
+                    hour-= 12;
+                    format = "PM";
+                }
+                else{
+                    format = "AM";
+                }
 
+                String timestart= new String (hour+":"+minute+" "+format);
+                createBooking.getReference("BookingData").child(userID).child(newBooked).child("BookDate").setValue(bookDate);
+                createBooking.getReference("BookingData").child(userID).child(newBooked).child("BookStart").setValue(timestart);
+                createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("BookDate").setValue(bookDate);
+                createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("startTime").setValue(timestart);
+
+                Toast.makeText(SearchbabysitterActivity.this, timestart,Toast.LENGTH_SHORT).show();
             }
         });
 
-        etEndTime.setInputType(InputType.TYPE_NULL);
-        etEndTime.setOnClickListener(new View.OnClickListener() {
+        timeEnd.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
-            public void onClick(View v) {
-                final Calendar cldr2 = Calendar.getInstance();
-                int hour2 = cldr2.get(Calendar.HOUR_OF_DAY);
-                int minutes2 = cldr2.get(Calendar.MINUTE);
-                // time picker dialog
-                picker2 = new TimePickerDialog(SearchbabysitterActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker tp2, int sHour2, int sMinute2) {
-                                if(sMinute2==00){
-                                    etEndTime.setText(sHour2 + ":" + sMinute2+"0");
-                                }
-                                else{
-                                    etEndTime.setText(sHour2 + ":" + sMinute2);
-                                }
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                int hour = hourOfDay;
+                String format;
+                if(hour == 0){
+                    hour+=12;
+                    format = "AM";
+                }
+                else if( hour == 12){
+                    format ="PM";
+                }
+                else if(hour >12){
+                    hour-= 12;
+                    format = "PM";
 
-                            }
-                        }, hour2, minutes2, true);
-                picker2.show();
+                }
+                else{
+                    format = "AM";
+                }
+                String timeend= new String (hour+":"+minute+" "+format);
+                createBooking.getReference("BookingData").child(userID).child(newBooked).child("BookEnd").setValue(timeend);
+                createBooking.getReference("BookingData").child(userID).child(newBooked).child("ReceiptID").setValue(newReceipt);
+                //ReceiptModel receiptData = new ReceiptModel("null","N/A","N/A","N/A","N/A");
+                createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("endTime").setValue(timeend);
+                createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("sitterName").setValue("null");
+                createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("reqTime").setValue("null");
+                createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("newEnd").setValue("null");
+                createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("addCharge").setValue("null");
+                createReceipt.getReference("BookingReceipt").child(userID).child(newReceipt).child("totalCharge").setValue("null");
+
+                Toast.makeText(SearchbabysitterActivity.this, timeend,Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
         BtnSearchBs.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.M)
@@ -146,19 +190,13 @@ public class SearchbabysitterActivity extends AppCompatActivity {
                     selectedAge = Age30.getText().toString();
                 }
 
-               // String [] filter = {selectedGender,selectedAge};
-
                 Intent intent = new Intent(SearchbabysitterActivity.this, Retrieve.class);
+                intent.putExtra(BOOK_KEY, newBooked);
+                intent.putExtra(RECEIPT_KEY, newReceipt);
                 intent.putExtra(AGE_KEY, selectedAge);
                 intent.putExtra(GENDER_KEY, selectedGender);
+                //Toast.makeText(SearchbabysitterActivity.this, "start "+start+" end: "+end, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(intent));
-
-
-
-
-//                Retrieve retrieveList = new Retrieve();
-//                retrieveList.setGender(selectedGender);
-//                retrieveList.setAge(selectedAge);
 
 
 
@@ -168,12 +206,15 @@ public class SearchbabysitterActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if(id == android.R.id.home){
             this.finish();
+
+
         }
 
         return super.onOptionsItemSelected(item);

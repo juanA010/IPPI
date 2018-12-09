@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,9 +24,12 @@ public class SitterProfileActivity extends AppCompatActivity {
     private Button goToContact, acceptRequest, seeLocation;
     private RatingBar star;
     private TextView SitterName, ChargePerHour, SitterAddress, SitterReview, SitterAge, SitterGender;
-    private DatabaseReference sitterProfileRef;
+    private DatabaseReference sitterProfileRef, addBookingData;
+    private FirebaseDatabase createBooking = FirebaseDatabase.getInstance();
 
     public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
+    public  final static String BOOK_KEY = "parentapp.ippi.ippiparent.book_key";
+    public  final static String RECEIPT_KEY = "parentapp.ippi.ippiparent.receipt_key";
 
 
     @Override
@@ -50,6 +54,9 @@ public class SitterProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String message = intent.getStringExtra(USERNAME_KEY);
+        final String bookID = intent.getStringExtra(BOOK_KEY);
+        final String receiptID = intent.getStringExtra(RECEIPT_KEY);
+        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //Toast.makeText(SitterProfileActivity.this,"key:"+message, Toast.LENGTH_SHORT).show();
 
@@ -114,10 +121,67 @@ public class SitterProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                final DatabaseReference sitterProfile= FirebaseDatabase.getInstance().getReference("BabysitterLocation").getRef();
+                sitterProfile.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String username = postSnapshot.child("username").getValue().toString();
+                            if(username.equals(message)){
+                                String key = postSnapshot.getKey().toString();
+                                sitterProfile.child(key).child("status").setValue("BabySitting");
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.w("tag", "Failed to read value.", error.toException());
+                    }
+                });
+
+
+                addBookingData = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
+
+
+                addBookingData.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                            //String user =postSnapshot.getValue().toString();
+                            String username = postSnapshot.child("username").getValue().toString();
+
+                            if(username.equals(message)){
+
+                                String phoneNumber = postSnapshot.child("userphonenumber").getValue().toString();
+                                String location = postSnapshot.child("userAddress").getValue().toString();
+                                final DatabaseReference createBooking= FirebaseDatabase.getInstance().getReference("BookingData").child(userID);
+                                createBooking.child(bookID).child("SitterName").setValue(username);
+                                createBooking.child(bookID).child("SitterLocation").setValue(location);
+                                createBooking.child(bookID).child("SitterContact").setValue(phoneNumber);
+
+                                generatePayment payment = new generatePayment();
+                                payment.calculatePayment(bookID,receiptID);
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.w("tag", "Failed to read value.", error.toException());
+                    }
+                });
+
 
                 Intent intent = new Intent(SitterProfileActivity.this, NavigationToSitter.class);
+                intent.putExtra(BOOK_KEY, bookID);
                 intent.putExtra(USERNAME_KEY, message);
                 startActivity(new Intent(intent));
+
+
             }
         });
 

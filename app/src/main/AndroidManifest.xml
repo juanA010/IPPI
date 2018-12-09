@@ -74,7 +74,8 @@
         <activity android:name=".GiveRatingActivity" />
         <activity android:name=".MessagesActivity" />
         <activity android:name=".MessagesActivityDetails" />
-        <activity android:name=".BookingHistoryDetail"></activity>
+        <activity android:name=".BookingHistoryDetail" />
+        <activity android:name=".ReciptActivity"></activity>
     </application>
 
 </manifest>

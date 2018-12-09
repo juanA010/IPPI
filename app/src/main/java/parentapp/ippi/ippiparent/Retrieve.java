@@ -49,7 +49,9 @@ public class Retrieve extends AppCompatActivity {
     public  final static String AGE_KEY = "parentapp.ippi.ippiparent.age_key";
     public  final static String GENDER_KEY = "parentapp.ippi.ippiparent.gender_key";
     public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
-
+    public  final static String BOOK_KEY = "parentapp.ippi.ippiparent.book_key";
+    public  final static String RECEIPT_KEY = "parentapp.ippi.ippiparent.receipt_key";
+    public  final static String END_KEY = "parentapp.ippi.ippiparent.end_key";
 
 
 
@@ -61,7 +63,6 @@ public class Retrieve extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
 
 
@@ -196,10 +197,10 @@ public class Retrieve extends AppCompatActivity {
                         }
 
                     }
-
                     else if(list.isEmpty()){
-                        Toast.makeText(Retrieve.this,"There is no available babysitter at this moment. We apologies for the inconvenient occur. Please choose another preference or wat for a while for the babysitter to be available. Thank you!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Retrieve.this, "Retrieving the list of babysitter",Toast.LENGTH_SHORT).show();
                     }
+
                 }
 
 
@@ -224,9 +225,14 @@ public class Retrieve extends AppCompatActivity {
                 //Log.d("log", "age: "+age+" gender "+gender);
 
                final String message = (String) parent.getItemAtPosition(position);
+                Intent idBooking = getIntent();
+                final String booking = idBooking .getStringExtra(BOOK_KEY);
+                final String receipt = idBooking .getStringExtra(RECEIPT_KEY);
                //String message =   babysitter.getUsername().toString();
 
                 Intent intent = new Intent(Retrieve.this, SitterProfileActivity.class);
+                intent.putExtra(BOOK_KEY, booking);
+                intent.putExtra(RECEIPT_KEY, receipt);
                 intent.putExtra(USERNAME_KEY, message);
 
 

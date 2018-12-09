@@ -48,7 +48,7 @@ public class MessagesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        MsgDB = FirebaseDatabase.getInstance().getReference().child("Messages");;
+        MsgDB = FirebaseDatabase.getInstance().getReference().child("Messages");
 
 //        adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,arrayList);
 

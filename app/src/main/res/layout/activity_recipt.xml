@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReciptActivity">
+
+    <TextView
+        android:id="@+id/tvPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:text="Receipt ID : "
+        android:textSize="20dp" />
+
+    <ImageView
+        android:id="@+id/ivBsProfileImage"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/profile_avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPayment" />
+
+    <TextView
+        android:id="@+id/tvSitterProfileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:text="Babysitter's Name"
+        app:layout_constraintStart_toEndOf="@+id/ivBsProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvPayment" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivBsProfileImage">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:text="Start Time"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvInitial"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:text="time"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:text="End Time"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvFinal"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:text="time"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:text="Request Time"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvRequest"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:text="time"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:text="New End Time"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvNewTime"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:text="time"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:text="Additional Charge"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvExtraCharge"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:text="RM"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:text="Total Charge"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTotalCharge"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:text="RM"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvBookID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:textSize="20dp"
+        android:text="id here"
+        app:layout_constraintStart_toEndOf="@+id/tvPayment"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
