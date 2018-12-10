@@ -30,7 +30,7 @@
             android:text="Now you can find your babysitter easily by clicking the start button below."
 
             android:textColor="@android:color/white"
-            android:textSize="14sp"
+            android:textSize="16dp"
             app:fontFamily="@font/chelsea_market" />
 
         <Button

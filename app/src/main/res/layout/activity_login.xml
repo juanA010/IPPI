@@ -30,7 +30,7 @@
         android:layout_marginTop="8dp"
         android:text="Sign In Now!"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

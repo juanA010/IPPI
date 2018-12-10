@@ -84,11 +84,13 @@ public class GiveRatingActivity extends AppCompatActivity {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             String username = postSnapshot.child("username").getValue().toString();
                             if(username.equals(Sitter)){
-                                String getUserKey = postSnapshot.getKey().toString();
-                                DatabaseReference setRatingReview = FirebaseDatabase.getInstance().getReference("BabysitterProfile").child(getUserKey);
+                                //String getUserKey = postSnapshot.getKey().toString();
+                                editSitterProfile.child("rating").setValue(ratingForSitter);
+                                editSitterProfile.child("customerReview").setValue(reviewForSitter);
+                                //DatabaseReference setRatingReview = FirebaseDatabase.getInstance().getReference("BabysitterProfile").child(getUserKey);
 
-                                setRatingReview.child("rating").setValue(ratingForSitter);
-                                setRatingReview.child("customerReview").setValue(reviewForSitter);
+                                //setRatingReview.child("rating").setValue(ratingForSitter);
+                                //setRatingReview.child("customerReview").setValue(reviewForSitter);
                             }
 
                         }
