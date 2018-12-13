@@ -51,9 +51,9 @@ public class AvailableSitterActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         babysitter = postSnapshot.getValue(AvailableBabysitter.class);
 
 //                        String username = postSnapshot.child("username").getValue().toString();
@@ -66,9 +66,13 @@ public class AvailableSitterActivity extends AppCompatActivity {
 
 
 
-                    //Log.d(TAG, "======="+postSnapshot.child("username").getValue());
-                    //Log.d(TAG, "======="+postSnapshot.child("rating").getValue());
+                        //Log.d(TAG, "======="+postSnapshot.child("username").getValue());
+                        //Log.d(TAG, "======="+postSnapshot.child("rating").getValue());
+                    }
                 }
+
+
+
             }
 
             @Override

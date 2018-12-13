@@ -57,36 +57,47 @@
         app:layout_constraintStart_toEndOf="@+id/ivBsProfileImage"
         app:layout_constraintTop_toBottomOf="@+id/tvSitterProfileName" />
 
-    <Button
-        android:id="@+id/btnSitterContact"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorPrimary"
-        android:text="contact"
-        app:layout_constraintEnd_toStartOf="@+id/btnSitterAccept"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivBsProfileImage" />
+        <TextView
+            android:id="@+id/tvSitterLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="SitterLocation"
+            app:layout_constraintStart_toEndOf="@+id/ivBsProfileImage"
+            app:layout_constraintTop_toBottomOf="@+id/tvSitterCharge" />
 
-    <Button
-        android:id="@+id/btnEmergency"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorAlert"
-        android:text="emergency"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnSitterContact"
-        app:layout_constraintTop_toBottomOf="@+id/ivBsProfileImage" />
+        <Button
+            android:id="@+id/btnSitterContact"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/colorPrimary"
+            android:text="contact"
+            app:layout_constraintEnd_toStartOf="@+id/btnSitterAccept"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivBsProfileImage" />
+
+        <Button
+            android:id="@+id/btnEmergency"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/colorAlert"
+            android:text="emergency"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnSitterContact"
+            app:layout_constraintTop_toBottomOf="@+id/ivBsProfileImage" />
 
     <View
         android:id="@+id/divider"
@@ -215,5 +226,6 @@
         app:headerLayout="@layout/nav_header">
 
     </android.support.design.widget.NavigationView>
+
 
 </android.support.v4.widget.DrawerLayout>

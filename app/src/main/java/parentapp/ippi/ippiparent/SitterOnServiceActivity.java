@@ -1,9 +1,13 @@
 package parentapp.ippi.ippiparent;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,8 +33,8 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
     private LinearLayout lyTracking, lyRequest, lyFinished;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
-    private DatabaseReference sitterProfileRef;
-    private TextView SitterName, ChargePerHour;
+    private DatabaseReference sitterProfileRef, sitterLocationRef;
+    private TextView SitterName, ChargePerHour, SitterLocation;
     public  final static String USERNAME_KEY = "parentapp.ippi.ippiparent.message_key";
     public  final static String BOOK_KEY = "parentapp.ippi.ippiparent.book_key";
     public  final static String RECEIPT_KEY = "parentapp.ippi.ippiparent.receipt_key";
@@ -57,6 +61,7 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
         lyRequest = findViewById(R.id.btnRequestTime);
         SitterName = findViewById(R.id.tvSitterProfileName);
         ChargePerHour = findViewById(R.id.tvSitterCharge);
+        SitterLocation = findViewById(R.id.tvSitterLocation);
         lyFinished = findViewById(R.id.btnServiceFinish);
 
         Intent intent = getIntent();
@@ -75,7 +80,7 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
                     if(dataSnapshot.exists()){
                         String username = dataSnapshot.child("SitterName").getValue().toString();
                         SitterName.setText(username);
-                        ChargePerHour.setText("RM10 / per hour");
+                        ChargePerHour.setText("RM5 / per hour");
                     }
 
 
@@ -84,6 +89,44 @@ public class SitterOnServiceActivity extends AppCompatActivity implements Naviga
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.w("tag", "Failed to read value.", error.toException());
+            }
+        });
+
+        sitterLocationRef = FirebaseDatabase.getInstance().getReference("BabysitterProfile").getRef();
+
+
+        sitterLocationRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                    //String user =postSnapshot.getValue().toString();
+                    String username = postSnapshot.child("username").getValue().toString();
+
+                    if(username.equals(Sitter)){
+                        String address = postSnapshot.child("userAddress").getValue().toString();
+                        SitterLocation.setText(address);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("tag", "Failed to read value.", error.toException());
+            }
+        });
+
+        Emergency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent DIALIntent = new Intent(Intent.ACTION_DIAL);
+                DIALIntent.setData(Uri.parse("tel:999"));
+
+                if (ActivityCompat.checkSelfPermission(SitterOnServiceActivity.this,
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                startActivity(DIALIntent);
             }
         });
 

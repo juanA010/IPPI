@@ -94,113 +94,122 @@ public class Retrieve extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds: dataSnapshot.getChildren()) {
+                if(dataSnapshot.exists()){
 
-                    String sitterage = ds.child("userAge").getValue().toString();
-                    String sittergender = ds.child("userGender").getValue().toString();
+                    for(DataSnapshot ds: dataSnapshot.getChildren()) {
 
-                    int r = Integer.parseInt(sitterage);
+                        String sitterage = ds.child("userAge").getValue().toString();
+                        String sittergender = ds.child("userGender").getValue().toString();
 
-                    if (age.equals("20-24") && gender.equals("Male")) {
-                        if ((r >= 20 && r <= 24) && sittergender.equals("M")) {
-                            babysitter = ds.getValue(AvailableBabysitter.class);
-                            String SitterUsername = babysitter.getUsername().toString();
-                            list.add(SitterUsername);
-                            lvBabysitter.setAdapter(adapter);
+                        int r = Integer.parseInt(sitterage);
 
-                        }
-
-                    }
-                    if (age.equals("20-24") && gender.equals("Female")) {
-                        if ((r >= 20 && r <= 24) && sittergender.equals("F")) {
-                            babysitter = ds.getValue(AvailableBabysitter.class);
-                            String SitterUsername = babysitter.getUsername().toString();
-                            list.add(SitterUsername);
-                            lvBabysitter.setAdapter(adapter);
-
-                        }
-                    }
-
-                    if (age.equals("20-24") && gender.equals("Any")) {
-                        if ((r >= 20 && r <= 24)) {
-                            babysitter = ds.getValue(AvailableBabysitter.class);
-                            String SitterUsername = babysitter.getUsername().toString();
-                            list.add(SitterUsername);
-                            lvBabysitter.setAdapter(adapter);
-
-                        }
-                    }
-
-
-                    if (age.equals("25-29") && gender.equals("Male")) {
-                        if ((r >= 25 && r <= 29) && sittergender.equals("M")) {
-                            babysitter = ds.getValue(AvailableBabysitter.class);
-                            String SitterUsername = babysitter.getUsername().toString();
-                            list.add(SitterUsername);
-                            lvBabysitter.setAdapter(adapter);
-
-                        }
-                    }
-
-                    if (age.equals("25-29") && gender.equals("Female")) {
-                        if (((r >= 25 && r <= 29) && sittergender.equals("F"))) {
+                        if (age.equals("20-24") && gender.equals("Male")) {
+                            if ((r >= 20 && r <= 24) && sittergender.equals("M")) {
                                 babysitter = ds.getValue(AvailableBabysitter.class);
                                 String SitterUsername = babysitter.getUsername().toString();
                                 list.add(SitterUsername);
                                 lvBabysitter.setAdapter(adapter);
 
+                            }
+
+                        }
+                        if (age.equals("20-24") && gender.equals("Female")) {
+                            if ((r >= 20 && r <= 24) && sittergender.equals("F")) {
+                                babysitter = ds.getValue(AvailableBabysitter.class);
+                                String SitterUsername = babysitter.getUsername().toString();
+                                list.add(SitterUsername);
+                                lvBabysitter.setAdapter(adapter);
+
+                            }
+                        }
+
+                        if (age.equals("20-24") && gender.equals("Any")) {
+                            if ((r >= 20 && r <= 24)) {
+                                babysitter = ds.getValue(AvailableBabysitter.class);
+                                String SitterUsername = babysitter.getUsername().toString();
+                                list.add(SitterUsername);
+                                lvBabysitter.setAdapter(adapter);
+
+                            }
+                        }
+
+
+                        if (age.equals("25-29") && gender.equals("Male")) {
+                            if ((r >= 25 && r <= 29) && sittergender.equals("M")) {
+                                babysitter = ds.getValue(AvailableBabysitter.class);
+                                String SitterUsername = babysitter.getUsername().toString();
+                                list.add(SitterUsername);
+                                lvBabysitter.setAdapter(adapter);
+
+                            }
+                        }
+
+                        if (age.equals("25-29") && gender.equals("Female")) {
+                            if (((r >= 25 && r <= 29) && sittergender.equals("F"))) {
+                                babysitter = ds.getValue(AvailableBabysitter.class);
+                                String SitterUsername = babysitter.getUsername().toString();
+                                list.add(SitterUsername);
+                                lvBabysitter.setAdapter(adapter);
+
+                            }
+
+                        }
+
+
+                        if (age.equals("25-29") && gender.equals("Any")) {
+                            if ((r >= 25 && r <= 29)) {
+                                babysitter = ds.getValue(AvailableBabysitter.class);
+                                String SitterUsername = babysitter.getUsername().toString();
+                                list.add(SitterUsername);
+                                lvBabysitter.setAdapter(adapter);
+
+                            }
+
+                        }
+
+                        if (age.equals("30 above") && gender.equals("Male")) {
+                            if ((r >=30) && sittergender.equals("M")) {
+                                babysitter = ds.getValue(AvailableBabysitter.class);
+                                String SitterUsername = babysitter.getUsername().toString();
+                                list.add(SitterUsername);
+                                lvBabysitter.setAdapter(adapter);
+
+                            }
+
+                        }
+
+                        if (age.equals("30 above") && gender.equals("Female")) {
+                            if ((r >=30) && sittergender.equals("F")) {
+                                babysitter = ds.getValue(AvailableBabysitter.class);
+                                String SitterUsername = babysitter.getUsername().toString();
+                                list.add(SitterUsername);
+                                lvBabysitter.setAdapter(adapter);
+
+                            }
+
+                        }
+
+                        if (age.equals("30 above") && gender.equals("Any")) {
+                            if ((r >=30)) {
+                                babysitter = ds.getValue(AvailableBabysitter.class);
+                                String SitterUsername = babysitter.getUsername().toString();
+                                list.add(SitterUsername);
+                                lvBabysitter.setAdapter(adapter);
+
+                            }
+
+                        }
+                        else if(list.isEmpty()){
+                            Toast.makeText(Retrieve.this, "Retrieving the list of babysitter",Toast.LENGTH_SHORT).show();
                         }
 
                     }
 
 
-                    if (age.equals("25-29") && gender.equals("Any")) {
-                        if ((r >= 25 && r <= 29)) {
-                            babysitter = ds.getValue(AvailableBabysitter.class);
-                            String SitterUsername = babysitter.getUsername().toString();
-                            list.add(SitterUsername);
-                            lvBabysitter.setAdapter(adapter);
+                }
 
-                        }
-
-                    }
-
-                    if (age.equals("30 above") && gender.equals("Male")) {
-                        if ((r >=30) && sittergender.equals("M")) {
-                            babysitter = ds.getValue(AvailableBabysitter.class);
-                            String SitterUsername = babysitter.getUsername().toString();
-                            list.add(SitterUsername);
-                            lvBabysitter.setAdapter(adapter);
-
-                        }
-
-                    }
-
-                    if (age.equals("30 above") && gender.equals("Female")) {
-                        if ((r >=30) && sittergender.equals("F")) {
-                            babysitter = ds.getValue(AvailableBabysitter.class);
-                            String SitterUsername = babysitter.getUsername().toString();
-                            list.add(SitterUsername);
-                            lvBabysitter.setAdapter(adapter);
-
-                        }
-
-                    }
-
-                    if (age.equals("30 above") && gender.equals("Any")) {
-                        if ((r >=30)) {
-                            babysitter = ds.getValue(AvailableBabysitter.class);
-                            String SitterUsername = babysitter.getUsername().toString();
-                            list.add(SitterUsername);
-                            lvBabysitter.setAdapter(adapter);
-
-                        }
-
-                    }
-                    else if(list.isEmpty()){
-                        Toast.makeText(Retrieve.this, "Retrieving the list of babysitter",Toast.LENGTH_SHORT).show();
-                    }
-
+                else{
+                    Toast.makeText(Retrieve.this, "We cannot retrieve any available babysitter at this moments", Toast.LENGTH_LONG).show();
                 }
 
 

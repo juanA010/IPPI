@@ -43,7 +43,7 @@ public class ChangePassActivity extends AppCompatActivity {
                 final String updt_verifyPass = VerifyPassword.getText().toString();
 
                 if (updt_verifyPass.isEmpty() || updt_changePass.isEmpty()){
-                    Toast.makeText(ChangePassActivity.this, "Empty field! Please enter your new Address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePassActivity.this, "Empty field! Please enter your new Password", Toast.LENGTH_SHORT).show();
 
                 }
 

@@ -152,7 +152,7 @@
             android:layout_gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="21dp"
-            android:text="Time Start:"
+            android:text="Start Time"
             android:textColor="#000"
             android:textSize="16sp" />
 
@@ -175,9 +175,10 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:orientation="horizontal"
+        android:paddingTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/btSearchBs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:paddingTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TextView
@@ -187,7 +188,7 @@
             android:layout_gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="21dp"
-            android:text="Time End:  "
+            android:text="End Time"
             android:textColor="#000"
             android:textSize="16sp" />
 
@@ -216,6 +217,26 @@
         android:background="@color/colorPrimary"
         android:padding="10dp"
         android:text="Search"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btCancelBs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btCancelBs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/colorAlert"
+        android:padding="10dp"
+        android:text="Cancel"
         android:textColor="#fff"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

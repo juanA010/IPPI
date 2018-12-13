@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -61,16 +62,22 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot.exists()){
-                    String myProfileName = dataSnapshot.child("username").getValue().toString();
-                    String myProfilePhone = dataSnapshot.child("userphonenumber").getValue().toString();
-                    String myProfileEmail = dataSnapshot.child("useremailAddress").getValue().toString();
-                    String myProfileLocation = dataSnapshot.child("userAddress").getValue().toString();
+                try {
 
-                    txt_username.setText("Username: "+myProfileName);
-                    txt_userphone.setText("Phone Number: "+myProfilePhone);
-                    txt_useremail.setText("Email: "+myProfileEmail);
-                    txt_userlocation.setText("Location: "+myProfileLocation);
+                    if (dataSnapshot.exists()) {
+                        String myProfileName = dataSnapshot.child("username").getValue().toString();
+                        String myProfilePhone = dataSnapshot.child("userphonenumber").getValue().toString();
+                        String myProfileEmail = dataSnapshot.child("useremailAddress").getValue().toString();
+                        String myProfileLocation = dataSnapshot.child("userAddress").getValue().toString();
+
+                        txt_username.setText("Username: " + myProfileName);
+                        txt_userphone.setText("Phone Number: " + myProfilePhone);
+                        txt_useremail.setText("Email: " + myProfileEmail);
+                        txt_userlocation.setText("Location: " + myProfileLocation);
+                    }
+                }
+                catch (Exception e){
+                    Toast.makeText(ProfileActivity.this, "There is no internet connection", Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -162,7 +162,7 @@ public class SitterProfileActivity extends AppCompatActivity {
                                 createBooking.child(bookID).child("SitterName").setValue(username);
                                 createBooking.child(bookID).child("SitterLocation").setValue(location);
                                 createBooking.child(bookID).child("SitterContact").setValue(phoneNumber);
-                                createBooking.child(bookID).child("SitterRating").setValue("null");
+                                createBooking.child(bookID).child("SitterRating").setValue("0");
 
                                 final DatabaseReference createReceiptSitterName= FirebaseDatabase.getInstance().getReference("BookingReceipt").child(userID);
                                 createReceiptSitterName.child(receiptID).child("sitterName").setValue(username);

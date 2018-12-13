@@ -74,7 +74,7 @@
         <TextView
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Request Time"
+            android:text="Request Extra Hour and Minutes"
             android:textStyle="bold" />
 
         <EditText
@@ -187,7 +187,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:text="Request"
+        android:text="Request extra time "
         android:textColor="#ffffff" />
 
 

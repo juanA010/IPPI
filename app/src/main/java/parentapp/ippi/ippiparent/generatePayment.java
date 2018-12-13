@@ -89,8 +89,8 @@ public class generatePayment extends AppCompatActivity {
     }
 
     public void totalCharge (int hour, int mins, final String bID,  final String rID, final String uID){
-        int rateHour = 10;
-        float rateMin = (float) 0.2;
+        int rateHour = 5;
+        float rateMin = (float) 0.1;
 
 
         final float totalCharge = (rateHour*hour)+(rateMin*mins);

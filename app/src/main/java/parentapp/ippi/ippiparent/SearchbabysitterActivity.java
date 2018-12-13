@@ -42,7 +42,7 @@ public class SearchbabysitterActivity extends AppCompatActivity {
     private RadioButton GenderMale, GenderFemale, GenderAny, Age20, Age25, Age30;
     private RadioGroup GenderSelect, AgeSelect;
     private String selectedGender, selectedAge;
-    private Button BtnSearchBs;
+    private Button BtnSearchBs, BtnCancelBS;
     private TimePicker timeStart, timeEnd;
     private Calendar calendar;
     private FirebaseAuth mAuth;
@@ -61,10 +61,11 @@ public class SearchbabysitterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchbabysitter);
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         BtnSearchBs = findViewById(R.id.btSearchBs);
+        BtnCancelBS = findViewById(R.id.btCancelBs);
         GenderSelect = findViewById(R.id.SelectionGender);
         AgeSelect = findViewById(R.id.SelectionAge);
         GenderMale =findViewById(R.id.GenderMale);
@@ -196,6 +197,33 @@ public class SearchbabysitterActivity extends AppCompatActivity {
             }
         });
 
+        BtnCancelBS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reference = FirebaseDatabase.getInstance().getReference("BookingData").child(userID).child(newBooked);
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            reference.removeValue();
+                            DatabaseReference deleteReceipt = FirebaseDatabase.getInstance().getReference("BookingReceipt").child(userID).child(newReceipt);
+                            deleteReceipt.removeValue();
+                            startActivity(new Intent(SearchbabysitterActivity.this, AppMenu.class));
+                        }
+                        else {
+                            startActivity(new Intent(SearchbabysitterActivity.this, AppMenu.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+        });
+
         BtnSearchBs.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.M)
             @Override
@@ -239,16 +267,16 @@ public class SearchbabysitterActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if(id == android.R.id.home){
-            this.finish();
-
-
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if(id == android.R.id.home){
+//            this.finish();
+//
+//
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 }
