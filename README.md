@@ -1,4 +1,4 @@
-# IPPI
+# IPPI (Innovative Product Project Initiative)
 Final Year Project
 
 Babysitter Booking System
